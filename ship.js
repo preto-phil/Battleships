@@ -12,7 +12,6 @@ function Ship(length) {
     length: length,
     hits: hitNum,
     sunk: isSunk(),
-    hitFunction: hit(),
   }
 };
 

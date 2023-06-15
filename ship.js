@@ -1,16 +1,18 @@
 function Ship(length) {
 
   function hit() {
-    return hitNum += 1;
+    return this.hits += 1;
   }
 
   function isSunk() {
-    return hitNum === length ? true : false
+    return this.sunk = this.hits === length ? true : false;
   }
 
   return {
     length: length,
-    hits: hitNum,
+    hits: 0,
+    hit,
+    isSunk,
     sunk: isSunk(),
   }
 };

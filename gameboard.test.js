@@ -1,8 +1,8 @@
 const Gameboard = require('./gameboard');
 
 test('Gameboard size = 100', () => {
-  const gameboard = Gameboard().createGameBoard();
-  expect(gameboard.length).toBe(100);
+  const gameboard = Gameboard();
+  expect(gameboard.gameBoard.length).toBe(100);
 });
 
 /* 

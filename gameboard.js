@@ -22,6 +22,8 @@ const Gameboard = () => {
     }
   }
 
+  createGameBoard();
+
   return { 
     gameBoard,
     placeShip

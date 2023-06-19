@@ -16,10 +16,16 @@ const Gameboard = () => {
     // Validation
   
   
+    
     for (let i = 0; i < ship.length; i++) {
+      // if horizontal
       const cell = gameBoard[row * 10 + col + i]
+      // if vertical
+      // const cell = gameBoard[row * 10 + col + i * 10]
+
       cell.ship = `${ship.name}`;
     }
+
   }
 
   createGameBoard();

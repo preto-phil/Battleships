@@ -1,4 +1,4 @@
-function Ship(length) {
+function Ship(name, length) {
 
   function hit() {
     this.hits += 1;
@@ -10,6 +10,7 @@ function Ship(length) {
   }
 
   return {
+    name,
     length,
     hits: 0,
     sunk: false,

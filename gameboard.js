@@ -12,17 +12,13 @@ const Gameboard = () => {
     }
   }
 
-  function placeShip(ship, row, col) {
-    // Validation
-  
+  function placeShip(ship, row, col, axis) {
+    const index = row * 10 + col;
+    const increment = axis === 'horizontal' ? 1 : 10;
   
     
     for (let i = 0; i < ship.length; i++) {
-      // if horizontal
-      const cell = gameBoard[row * 10 + col + i]
-      // if vertical
-      // const cell = gameBoard[row * 10 + col + i * 10]
-
+      const cell = gameBoard[index + i * increment];
       cell.ship = `${ship.name}`;
     }
 

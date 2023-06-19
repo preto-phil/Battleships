@@ -18,8 +18,5 @@ function Ship(name, length) {
     isSunk,
   }
 };
-/* 
-const ship1 = Ship(3);
-console.log(ship1); */
 
 module.exports = Ship;

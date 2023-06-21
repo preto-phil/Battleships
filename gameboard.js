@@ -40,3 +40,5 @@ const submarine = Ship('submarine', 3);
 const patrolBoat = Ship('patrolBoat', 2);
 
 module.exports = Gameboard;
+
+// New day, not a new me

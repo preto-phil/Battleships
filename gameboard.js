@@ -12,23 +12,21 @@ const Gameboard = () => {
     }
   }
 
-  function placeShip(ship, row, col, axis) {
+  function placeShip(shipName, row, col, axis) {
     const index = row * 10 + col;
     const increment = axis === 'horizontal' ? 1 : 10;
   
     
-    for (let i = 0; i < ship.length; i++) {
-      const cell = gameBoard[index + i * increment];
-      cell.ship = `${ship.name}`;
+    for (let i = 0; i < shipName.length; i++) {
+/*       const cell = gameBoard[index + i * increment];*/
+      gameBoard[index + i * increment].ship = `${shipName.name}`;
     }
 
   }
 
-  function attack() {
-    let x = Math.floor(Math.random() * 100)
+  function attack(x) {
     gameBoard[x].hit = true;
-
-    
+    return gameBoard[x];
   }
 
   createGameBoard();

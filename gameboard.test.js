@@ -11,21 +11,21 @@ test('Gameboard size = 100', () => {
 test('Horizontal placement: carrier at row 5 and col 0', () => {
   const carrier = Ship('carrier', 5);
   const carrierPlaced = Gameboard()
-  carrierPlaced.placeShip(carrier, 5, 0);
-  expect(carrierPlaced.gameBoard[50]).toEqual({ row: 5, col: 0, ship: 'carrier', hit: false });
+  carrierPlaced.placeShip(carrier, 5, 0, 'horizontal');
+  expect(carrierPlaced.gameBoard[51]).toEqual({ row: 5, col: 1, ship: 'carrier', hit: false });
 });
 
 
 test('Hitting a cell: random cell', () => {
-  const carrier = Ship('carrier', 5);
+  const carrier = new Ship('carrier', 5);
   const carrierPlaced = Gameboard();
   
   const randomRow = Math.floor(Math.random() * 10);
   const randomCol = Math.floor(Math.random() * 10);
-  const randomNum = Number(`${randomRow}${randomCol}`);
+  const randomNum = randomRow * 10 + randomCol;
 
-  carrierPlaced.placeShip(carrier, randomRow, randomCol);
-  carrierPlaced.gameBoard[randomNum].hit = true;
+  carrierPlaced.placeShip(carrier, randomRow, randomCol, 'vertical');
+  carrierPlaced.attack(randomNum);
 
   expect(carrierPlaced.gameBoard[randomNum]).toEqual({ row: randomRow, col: randomCol, ship: 'carrier', hit: true });
 });

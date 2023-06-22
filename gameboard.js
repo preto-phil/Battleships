@@ -26,6 +26,9 @@ const Gameboard = () => {
       return;
     }
     
+    // if ship is not === null - write code
+    // ship must be === null to be placed
+
     for (let i = 0; i < ship.length; i++) {
       const cell = gameBoard[index + i * increment];
       cell.ship = `${ship.name}`;
@@ -34,6 +37,7 @@ const Gameboard = () => {
   }
 
   function attack(x) {
+    // if statement added so that code can run in tests for specific numbers
     if (x === undefined) {
       let randomNum = Math.floor(Math.random() * 100);
       while (gameBoard[randomNum].hit === true) {

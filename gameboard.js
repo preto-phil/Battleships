@@ -29,10 +29,23 @@ const Gameboard = () => {
     // if ship is not === null - write code
     // ship must be === null to be placed
 
+
     for (let i = 0; i < ship.length; i++) {
+      let num = rowCol + i;
+      if (gameBoard[num].ship !== null) {
+        console.error('Ship placement out of bounds');
+        return;
+      } else {
+        const cell = gameBoard[index + i * increment];
+        cell.ship = ship;
+      }
+    }
+
+
+/*     for (let i = 0; i < ship.length; i++) {
       const cell = gameBoard[index + i * increment];
       cell.ship = ship;
-    }
+    } */
 
   }
 
@@ -44,7 +57,6 @@ const Gameboard = () => {
         randomNum = Math.floor(Math.random() * 100);
       }
       if (gameBoard[randomNum].ship !== null) {
-          // need to use eval alternative
           let shipName = gameBoard[randomNum].ship;
           shipName.hit();      
           console.log(shipName)

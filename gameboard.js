@@ -34,13 +34,16 @@ const Gameboard = () => {
   }
 
   function attack(x) {
-    let randomNum = Math.floor(Math.random() * 100);
-    while (gameBoard[randomNum].hit === true) {
-      randomNum = Math.floor(Math.random() * 100);
+    if (x === undefined) {
+      let randomNum = Math.floor(Math.random() * 100);
+      while (gameBoard[randomNum].hit === true) {
+        randomNum = Math.floor(Math.random() * 100);
+      }
+      return gameBoard[randomNum].hit = true;
+    } else {
+      gameBoard[x].hit = true;
+      return gameBoard[x];
     }
-    gameBoard[randomNum].hit = true;
-/*     gameBoard[x].hit = true;
-    return gameBoard[x]; */
   }
 
   createGameBoard();

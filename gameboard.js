@@ -31,7 +31,7 @@ const Gameboard = () => {
 
     for (let i = 0; i < ship.length; i++) {
       const cell = gameBoard[index + i * increment];
-      cell.ship = `${ship.name}`;
+      cell.ship = ship;
     }
 
   }
@@ -43,11 +43,17 @@ const Gameboard = () => {
       while (gameBoard[randomNum].hit === true) {
         randomNum = Math.floor(Math.random() * 100);
       }
+      if (gameBoard[randomNum].ship !== null) {
+          // need to use eval alternative
+          let shipName = gameBoard[randomNum].ship;
+          shipName.hit();      
+          console.log(shipName)
+      }
       return gameBoard[randomNum].hit = true;
     } else {
       gameBoard[x].hit = true;
       if (gameBoard[x].ship !== null) {
-        let shipName = eval(gameBoard[x].ship);
+        let shipName = gameBoard[x].ship;
         shipName.hit();
         console.log(shipName)
       }

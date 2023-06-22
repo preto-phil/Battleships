@@ -27,10 +27,13 @@ const Gameboard = () => {
     }
 
     for (let i = 0; i < ship.length; i++) {
-      let num = rowCol + i;
-      if (gameBoard[num].ship !== null) {
-        console.error('Ship placement out of bounds');
-        return;
+      let horNum = rowCol + i;
+      let verNum = rowCol + i * 10;
+      if (
+        (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
+        (axis === 'vertical' && gameBoard[verNum].ship !== null)
+      ) {
+        throw new Error('Ship placement overlapping');
       } else {
         const cell = gameBoard[index + i * increment];
         cell.ship = ship;

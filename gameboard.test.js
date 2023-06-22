@@ -33,9 +33,12 @@ test('Hitting a cell: 5 0 cell', () => {
 
 
 
-/* test('Vertical placement: battleship at row 4 and col 0', () => {
+
+test('Test double placement: ship overlapping', () => {
   const battleship = Ship('battleship', 4);
-  const battleshipPlaced = Gameboard()
-  battleshipPlaced.placeShip(battleship, 4, 0);
-  expect(battleshipPlaced.gameBoard[60]).toEqual({ row: 6, col: 0, ship: 'battleship' });
-}); */
+  const submarine = Ship('submarine', 3)
+  const gameboard = Gameboard()
+  gameboard.placeShip(battleship, 4, 0, 'horizontal');
+
+  expect(() => gameboard.placeShip(submarine, 4, 2, 'horizontal')).toThrow('Ship placement overlapping');
+});

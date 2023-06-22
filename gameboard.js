@@ -12,21 +12,35 @@ const Gameboard = () => {
     }
   }
 
-  function placeShip(shipName, row, col, axis) {
+  function placeShip(ship, row, col, axis) {
     const index = row * 10 + col;
     const increment = axis === 'horizontal' ? 1 : 10;
   
+    let rowCol = row * 10 + col
     
-    for (let i = 0; i < shipName.length; i++) {
-/*       const cell = gameBoard[index + i * increment];*/
-      gameBoard[index + i * increment].ship = `${shipName.name}`;
+    if (
+      (axis === 'horizontal' && rowCol >= (100 - ship.length + 1)) ||
+      (axis === 'vertical' && rowCol >= (100 - ship.length * 10 + 10))
+    ) {
+      console.error('Ship placement out of bounds');
+      return;
+    }
+    
+    for (let i = 0; i < ship.length; i++) {
+      const cell = gameBoard[index + i * increment];
+      cell.ship = `${ship.name}`;
     }
 
   }
 
   function attack(x) {
-    gameBoard[x].hit = true;
-    return gameBoard[x];
+    let randomNum = Math.floor(Math.random() * 100);
+    while (gameBoard[randomNum].hit === true) {
+      randomNum = Math.floor(Math.random() * 100);
+    }
+    gameBoard[randomNum].hit = true;
+/*     gameBoard[x].hit = true;
+    return gameBoard[x]; */
   }
 
   createGameBoard();

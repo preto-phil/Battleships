@@ -46,6 +46,11 @@ const Gameboard = () => {
       return gameBoard[randomNum].hit = true;
     } else {
       gameBoard[x].hit = true;
+      if (gameBoard[x].ship !== null) {
+        let shipName = eval(gameBoard[x].ship);
+        shipName.hit();
+        console.log(shipName)
+      }
       return gameBoard[x];
     }
   }
@@ -106,3 +111,7 @@ const patrolBoat = Ship('patrolBoat', 2);
 shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
 
 module.exports = Gameboard;
+
+
+
+

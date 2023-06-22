@@ -10,24 +10,24 @@ test('Gameboard size = 100', () => {
 
 test('Horizontal placement: carrier at row 5 and col 0', () => {
   const carrier = Ship('carrier', 5);
-  const carrierPlaced = Gameboard()
-  carrierPlaced.placeShip(carrier, 5, 0, 'horizontal');
-  expect(carrierPlaced.gameBoard[51].row).toEqual(5);
-  expect(carrierPlaced.gameBoard[51].col).toEqual(1);
-  expect(carrierPlaced.gameBoard[51].ship.name).toEqual('carrier');
-  expect(carrierPlaced.gameBoard[51].hit).toEqual(false);
+  const gameboard = Gameboard()
+  gameboard.placeShip(carrier, 5, 0, 'horizontal');
+  expect(gameboard.gameBoard[51].row).toEqual(5);
+  expect(gameboard.gameBoard[51].col).toEqual(1);
+  expect(gameboard.gameBoard[51].ship.name).toEqual('carrier');
+  expect(gameboard.gameBoard[51].hit).toEqual(false);
 });
 
 
 test('Hitting a cell: 5 0 cell', () => {
   const carrier = Ship('carrier', 5);
-  const carrierPlaced = Gameboard();
+  const gameboard = Gameboard();
 
 
-  carrierPlaced.placeShip(carrier, 5, 0, 'vertical');
-  carrierPlaced.attack(50);
+  gameboard.placeShip(carrier, 5, 0, 'vertical');
+  gameboard.receiveAttack(50);
 
-  expect(carrierPlaced.gameBoard[50].hit).toEqual(true);
+  expect(gameboard.gameBoard[50].hit).toEqual(true);
   expect(carrier.hits).toEqual(1);
 });
 

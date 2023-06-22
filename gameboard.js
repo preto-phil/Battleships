@@ -7,7 +7,7 @@ const Gameboard = () => {
   function createGameBoard() {
     for (let row = 0; row < 10; row++) {
       for (let col = 0; col < 10; col++) {
-        gameBoard.push({ row, col, ship: null });
+        gameBoard.push({ row, col, ship: null, hit: false });
       }
     }
   }
@@ -24,15 +24,27 @@ const Gameboard = () => {
 
   }
 
+  function attack() {
+    let x = Math.floor(Math.random() * 100)
+    gameBoard[x].hit = true;
+
+    
+  }
+
   createGameBoard();
 
   return { 
     gameBoard,
-    placeShip
+    placeShip,
+    attack
   }
 
 };
 
+/* function attack() {
+  let x = Math.floor(Math.random() * 100)
+  gameBoard[x].hit = true;
+} */
 
 
 function receiveAttack() {

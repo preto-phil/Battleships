@@ -22,8 +22,7 @@ const Gameboard = () => {
       (axis === 'horizontal' && rowCol >= (100 - ship.length + 1)) ||
       (axis === 'vertical' && rowCol >= (100 - ship.length * 10 + 10))
     ) {
-      console.error('Ship placement out of bounds');
-      return;
+      throw new Error('Ship placement out of bounds');
     }
 
     for (let i = 0; i < ship.length; i++) {

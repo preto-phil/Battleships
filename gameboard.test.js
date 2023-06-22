@@ -42,3 +42,12 @@ test('Test double placement: ship overlapping', () => {
 
   expect(() => gameboard.placeShip(submarine, 4, 2, 'horizontal')).toThrow('Ship placement overlapping');
 });
+
+test('Test out of bounds placement', () => {
+  const battleship = Ship('battleship', 4);
+  const gameboard = Gameboard()
+
+  expect(() => gameboard.placeShip(battleship, 9, 8, 'horizontal')).toThrow('Ship placement out of bounds');
+  expect(() => gameboard.placeShip(battleship, 7, 8, 'vertical')).toThrow('Ship placement out of bounds');
+
+});

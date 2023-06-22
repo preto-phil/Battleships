@@ -22,32 +22,25 @@ test('Horizontal placement: carrier at row 5 and col 0', () => {
 test('Hitting a cell: 5 0 cell', () => {
   const carrier = Ship('carrier', 5);
   const gameboard = Gameboard();
-
-
   gameboard.placeShip(carrier, 5, 0, 'vertical');
   gameboard.receiveAttack(50);
-
   expect(gameboard.gameBoard[50].hit).toEqual(true);
   expect(carrier.hits).toEqual(1);
 });
-
-
-
 
 test('Test double placement: ship overlapping', () => {
   const battleship = Ship('battleship', 4);
   const submarine = Ship('submarine', 3)
   const gameboard = Gameboard()
   gameboard.placeShip(battleship, 4, 0, 'horizontal');
-
   expect(() => gameboard.placeShip(submarine, 4, 2, 'horizontal')).toThrow('Ship placement overlapping');
+  expect(() => gameboard.placeShip(submarine, 2, 0, 'vertical')).toThrow('Ship placement overlapping');
+
 });
 
 test('Test out of bounds placement', () => {
   const battleship = Ship('battleship', 4);
   const gameboard = Gameboard()
-
   expect(() => gameboard.placeShip(battleship, 9, 8, 'horizontal')).toThrow('Ship placement out of bounds');
   expect(() => gameboard.placeShip(battleship, 7, 8, 'vertical')).toThrow('Ship placement out of bounds');
-
 });

@@ -38,6 +38,33 @@ const Gameboard = () => {
     }
   }
 
+  function cpuPlaceShip(ship, row, col, axis) {
+    const index = row * 10 + col;
+    const increment = axis === 'horizontal' ? 1 : 10;
+    
+    if (
+      (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
+      (axis === 'vertical' && index >= (100 - ship.length * 10 + 10))
+    ) {
+      cpuGameboard.cpuGB = '';
+      cpuGameboard.cpuShipPlacement();
+    }
+
+    for (let i = 0; i < ship.length; i++) {
+      let horNum = index + i;
+      let verNum = index + i * 10;
+      if (
+        (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
+        (axis === 'vertical' && gameBoard[verNum].ship !== null)
+      ) {
+        throw new Error('Ship placement overlapping');
+      } else {
+        const cell = gameBoard[index + i * increment];
+        cell.ship = ship;
+      }
+    }
+  }
+
   function receiveAttack(x) {
     // if statement added so that code can run in tests for specific numbers
     if (x === undefined) {
@@ -70,6 +97,7 @@ const Gameboard = () => {
   return { 
     gameBoard,
     placeShip,
+    cpuPlaceShip,
     receiveAttack
   }
 
@@ -120,17 +148,35 @@ const patrolBoat = Ship('patrolBoat', 2);
 
 shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
 
-function cpuGameboard() {
+const cpuGameboard = () => {
   let cpuGB = Gameboard();
 
-  shipArray.forEach(ship => {
-    let rCol = Math.floor(Math.random() * 100);
-    let rRow = Math.floor(Math.random() * 100);
-    let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
-    cpuGB.placeShip(ship, rCol, rRow, axis)
-  })
+  cpuGB();
+
+
+
+  function cpuShipPlacement() {
+    shipArray.forEach(ship => {
+      let rCol = Math.floor(Math.random() * 10);
+      let rRow = Math.floor(Math.random() * 10);
+      let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
+      cpuGB.cpuPlaceShip(ship, rCol, rRow, axis)
+    })
+  }
+
+  cp
+
+  // if error - remove gameboard / cpuGB = ''
+  // rerun shipArray.forEach
+
+  return {
+    cpuGB,
+    cpuShipPlacement
+  }
 
 }
+
+cpuGameboard();
 
 module.exports = Gameboard;
 

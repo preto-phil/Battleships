@@ -1,12 +1,10 @@
 const Gameboard = require('./gameboard');
 const Ship = require('./ship');
 
-
 test('Gameboard size = 100', () => {
   const gameboard = Gameboard();
   expect(gameboard.gameBoard.length).toBe(100);
 });
-
 
 test('Horizontal placement: carrier at row 5 and col 0', () => {
   const carrier = Ship('carrier', 5);

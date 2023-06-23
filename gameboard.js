@@ -64,6 +64,9 @@ const Gameboard = () => {
     }
   }
 
+  // if all ships === sunk then gameOver
+
+
   createGameBoard();
 
   return { 

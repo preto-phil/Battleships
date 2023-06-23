@@ -15,19 +15,17 @@ const Gameboard = () => {
   function placeShip(ship, row, col, axis) {
     const index = row * 10 + col;
     const increment = axis === 'horizontal' ? 1 : 10;
-  
-    let rowCol = row * 10 + col
     
     if (
-      (axis === 'horizontal' && rowCol >= (100 - ship.length + 1)) ||
-      (axis === 'vertical' && rowCol >= (100 - ship.length * 10 + 10))
+      (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
+      (axis === 'vertical' && index >= (100 - ship.length * 10 + 10))
     ) {
       throw new Error('Ship placement out of bounds');
     }
 
     for (let i = 0; i < ship.length; i++) {
-      let horNum = rowCol + i;
-      let verNum = rowCol + i * 10;
+      let horNum = index + i;
+      let verNum = index + i * 10;
       if (
         (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
         (axis === 'vertical' && gameBoard[verNum].ship !== null)
@@ -121,6 +119,18 @@ const submarine = Ship('submarine', 3);
 const patrolBoat = Ship('patrolBoat', 2);
 
 shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
+
+function cpuGameboard() {
+  let cpuGB = Gameboard();
+
+  shipArray.forEach(ship => {
+    let rCol = Math.floor(Math.random() * 100);
+    let rRow = Math.floor(Math.random() * 100);
+    let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
+    cpuGB.placeShip(ship, rCol, rRow, axis)
+  })
+
+}
 
 module.exports = Gameboard;
 

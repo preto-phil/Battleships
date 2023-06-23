@@ -1,8 +1,28 @@
-// import Ship from "./ship";
-const Ship = require('./ship');
+function Ship(name, length) {
+
+  function hit() {
+    this.hits += 1;
+    this.sunk = this.isSunk();
+  }
+
+  function isSunk() {
+    return this.hits === this.length;
+  }
+
+  return {
+    name,
+    length,
+    hits: 0,
+    sunk: false,
+    hit,
+    isSunk,
+  }
+};
 
 const Gameboard = () => {
   const gameBoard = [];
+
+    
 
   function createGameBoard() {
     for (let row = 0; row < 10; row++) {
@@ -41,12 +61,11 @@ const Gameboard = () => {
   function cpuPlaceShip(ship, row, col, axis) {
     const index = row * 10 + col;
     const increment = axis === 'horizontal' ? 1 : 10;
-    // debugger;
+    
     if (
       (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
       (axis === 'vertical' && index >= (100 - ship.length * 10 + 10))
     ) {
-      cpu = '';
       cpu = Gameboard();
       cpuShipPlacement();
     }
@@ -58,7 +77,6 @@ const Gameboard = () => {
         (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
         (axis === 'vertical' && gameBoard[verNum].ship !== null)
       ) {
-        cpu = '';
         cpu = Gameboard();
         cpuShipPlacement();
       } else {
@@ -106,18 +124,6 @@ const Gameboard = () => {
 
 };
 
-
-
-/* 
-Function that keeps tab of whether all ships equal to sunk
-
-if (thisShip.sunk === true && all the others sunk)
-or use array method that test each array items sunk function
-*/
-
-
-/* Creating the CPU Gameboard and placing its ships */
-
 let cpu = Gameboard();
 
 let cpuShipArray = []
@@ -131,80 +137,15 @@ const cpuPatrolBoat = Ship('cpuPatrolBoat', 2);
 cpuShipArray.push(cpuCarrier, cpuBattleship, cpuDestroyer, cpuSubmarine, cpuPatrolBoat);
 
 function cpuShipPlacement() {
+
 cpuShipArray.forEach(ship => {
-  let rCol = Math.floor(Math.random() * 10);
   let rRow = Math.floor(Math.random() * 10);
+  let rCol = Math.floor(Math.random() * 10);
   let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
   cpu.cpuPlaceShip(ship, rRow, rCol, axis)
 })
 }
 
-// call cpuShipPlacement() when start game clicked using event listener
+cpuShipPlacement()
 
-console.log(cpu);
-
-
-
-/* Player gameboard */
-
-let player = Gameboard();
-
-let playerShipArray = []
-
-const carrier = Ship('carrier', 5);
-const battleship = Ship('battleship', 4);
-const destroyer = Ship('destroyer', 3);
-const submarine = Ship('submarine', 3);
-const patrolBoat = Ship('patrolBoat', 2);
-
-playerShipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
-
-player.placeShip(carrier, 0, 0, 'horizontal')
-player.placeShip(battleship, 1, 0, 'vertical')
-player.placeShip(destroyer, 6, 8, 'horizontal')
-player.placeShip(submarine, 1, 5, 'vertical')
-player.placeShip(patrolBoat, 9, 5, 'horizontal')
-
-
-
-
-
-
-
-
-
-
-
-/* const cpuGameboard = () => {
-  let cpu = Gameboard();
-
-  let shipArray = []
-  
-  const carrier = Ship('carrier', 5);
-  const battleship = Ship('battleship', 4);
-  const destroyer = Ship('destroyer', 3);
-  const submarine = Ship('submarine', 3);
-  const patrolBoat = Ship('patrolBoat', 2);
-  
-  shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
-  
-  function cpuShipPlacement() {
-  shipArray.forEach(ship => {
-    let rCol = Math.floor(Math.random() * 10);
-    let rRow = Math.floor(Math.random() * 10);
-    let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
-    cpu.cpuPlaceShip(ship, rCol, rRow, axis)
-  })
-  }
-  
-  
-  cpuShipPlacement();
-}
-
-cpuGameboard();
- */
-module.exports = Gameboard;
-
-
-
-
+console.log(cpu)

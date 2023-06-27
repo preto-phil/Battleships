@@ -61,29 +61,12 @@ const Gameboard = () => {
   function cpuPlaceShip(ship, row, col, axis) {
     const index = row * 10 + col;
     const increment = axis === 'horizontal' ? 1 : 10;
-    
-    if (
-      (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
-      (axis === 'vertical' && index >= (100 - ship.length * 10 + 10))
-    ) {
-      cpu = Gameboard();
-      cpuShipPlacement();
-    }
 
     for (let i = 0; i < ship.length; i++) {
-      let horNum = index + i;
-      let verNum = index + i * 10;
-      if (
-        (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
-        (axis === 'vertical' && gameBoard[verNum].ship !== null)
-      ) {
-        cpu = Gameboard();
-        cpuShipPlacement();
-      } else {
-        const cell = gameBoard[index + i * increment];
-        cell.ship = ship;
-      }
+      const cell = gameBoard[index + i * increment];
+      cell.ship = ship;
     }
+    console.log(ship);
   }
 
   function receiveAttack(x) {
@@ -136,16 +119,84 @@ const cpuPatrolBoat = Ship('cpuPatrolBoat', 2);
 
 cpuShipArray.push(cpuCarrier, cpuBattleship, cpuDestroyer, cpuSubmarine, cpuPatrolBoat);
 
+function getNumber () {
+  
+}
+
 function cpuShipPlacement() {
 
-cpuShipArray.forEach(ship => {
-  let rRow = Math.floor(Math.random() * 10);
-  let rCol = Math.floor(Math.random() * 10);
-  let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
-  cpu.cpuPlaceShip(ship, rRow, rCol, axis)
-})
+  cpuShipArray.forEach(ship => {
+    let rRow = Math.floor(Math.random() * 10);
+    let rCol = Math.floor(Math.random() * 10);
+    let index = rRow * 10 + rCol;
+    /* let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical'; */
+    let axis = 'vertical';
+
+    /* console.log(axis === 'vertical') */
+    console.log(index)
+    console.log((100 - (ship.length * 10) + 10))
+    console.log((axis === 'vertical' && index >= (100 - (ship.length * 10) + 10)))
+
+    while (
+      (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
+      (axis === 'vertical' && index >= (100 - (ship.length * 10) + 10))
+    ) {
+      rRow = Math.floor(Math.random() * 10);
+      rCol = Math.floor(Math.random() * 10);
+      index = rRow * 10 + rCol;
+    }
+
+    console.log(index)
+    console.log((100 - (ship.length * 10) + 10))
+    console.log((axis === 'vertical' && index >= (100 - (ship.length * 10) + 10)))  
+
+    let i = 0;
+    while (i < ship.length) {     
+      let num = axis === 'horizontal' ? index + i : index + i * 10;
+      console.log(index)
+      console.log(num)
+      while (cpu.gameBoard[num].ship !== null) {
+        rRow = Math.floor(Math.random() * 10);
+        rCol = Math.floor(Math.random() * 10);
+        while (
+          (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
+          (axis === 'vertical' && index >= (100 - (ship.length * 10) + 10))
+        ) {
+          rRow = Math.floor(Math.random() * 10);
+          rCol = Math.floor(Math.random() * 10);
+          index = rRow * 10 + rCol;
+        }    
+        index = rRow * 10 + rCol;
+        i = 0;
+      } else {
+        i++;
+      }
+    }
+
+    cpu.cpuPlaceShip(ship, rRow, rCol, axis)
+  });
+  return;
 }
+
+
+
+for (let i = 0; i < ship.length; )
+
+
+
 
 cpuShipPlacement()
 
 console.log(cpu)
+
+/* 
+cpu.gameBoard[verNum].ship !== null;
+
+while (
+  (axis === 'horizontal' && cpu.gameBoard[horNum].ship !== null) ||
+  (axis === 'vertical' && cpu.gameBoard[verNum].ship !== null)
+) {
+  rRow = Math.floor(Math.random() * 10);
+  rCol = Math.floor(Math.random() * 10);
+  index = rRow * 10 + rCol;
+} */

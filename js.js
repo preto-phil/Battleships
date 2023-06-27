@@ -125,13 +125,7 @@ function cpuShipPlacement() {
     let rRow = Math.floor(Math.random() * 10);
     let rCol = Math.floor(Math.random() * 10);
     let index = rRow * 10 + rCol;
-    /* let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical'; */
-    let axis = 'vertical';
-
-    /* console.log(axis === 'vertical') */
-    console.log(index)
-    console.log((100 - (ship.length * 10) + 10))
-    console.log((axis === 'vertical' && index >= (100 - (ship.length * 10) + 10)))
+    let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
 
     while (
       (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
@@ -142,15 +136,9 @@ function cpuShipPlacement() {
       index = rRow * 10 + rCol;
     }
 
-    console.log(index)
-    console.log((100 - (ship.length * 10) + 10))
-    console.log((axis === 'vertical' && index >= (100 - (ship.length * 10) + 10)))  
-
     let i = 0;
     while (i < ship.length) {     
       let num = axis === 'horizontal' ? index + i : index + i * 10;
-      console.log(index)
-      console.log(num)
       while (cpu.gameBoard[num].ship !== null) {
         rRow = Math.floor(Math.random() * 10);
         rCol = Math.floor(Math.random() * 10);
@@ -181,39 +169,3 @@ function cpuShipPlacement() {
 cpuShipPlacement()
 
 console.log(cpu)
-
-/* 
-for (let i = 0; i < ship.length; i++) {
-  let num = axis === 'horizontal' ? index + i : index + i * 10;
-
-  while (cpu.gameBoard[num].ship !== null) {
-    rRow = Math.floor(Math.random() * 10);
-    rCol = Math.floor(Math.random() * 10);
-    index = rRow * 10 + rCol;
-    while (
-      (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
-      (axis === 'vertical' && index >= (100 - (ship.length * 10) + 10))
-    ) {
-      rRow = Math.floor(Math.random() * 10);
-      rCol = Math.floor(Math.random() * 10);
-      index = rRow * 10 + rCol;
-    }    
-    i = 0;
-  }
-}
- */
-
-
-
-
-/* 
-cpu.gameBoard[verNum].ship !== null;
-
-while (
-  (axis === 'horizontal' && cpu.gameBoard[horNum].ship !== null) ||
-  (axis === 'vertical' && cpu.gameBoard[verNum].ship !== null)
-) {
-  rRow = Math.floor(Math.random() * 10);
-  rCol = Math.floor(Math.random() * 10);
-  index = rRow * 10 + rCol;
-} */

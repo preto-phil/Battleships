@@ -125,6 +125,20 @@ const cpuPatrolBoat = Ship('cpuPatrolBoat', 2);
 
 cpuShipArray.push(cpuCarrier, cpuBattleship, cpuDestroyer, cpuSubmarine, cpuPatrolBoat);
 
+function checkSunk() {
+  let totalSunk = 0;
+  cpuShipArray.forEach(ship => {
+    if (ship.sunk === true) {
+      totalSunk += 1;
+    }
+  })
+  if (totalSunk === 5) {
+    console.log("Game Over!")
+  } else {
+    console.log('Game on!')
+  }
+}
+
 function cpuShipPlacement() {
 
   cpuShipArray.forEach(ship => {
@@ -173,5 +187,7 @@ function cpuShipPlacement() {
 }
 
 cpuShipPlacement()
+
+checkSunk()
 
 console.log(cpu)

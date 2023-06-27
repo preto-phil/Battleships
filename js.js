@@ -81,15 +81,21 @@ const Gameboard = () => {
           shipName.hit();      
           console.log(shipName)
       }
+      gameBoard[randomNum].hit = true;
       return gameBoard[randomNum];
     } else {
-      gameBoard[x].hit = true;
-      if (gameBoard[x].ship !== null) {
-        let shipName = gameBoard[x].ship;
-        shipName.hit();
-        console.log(shipName)
+
+      if (gameBoard[x].hit === true) {
+        console.log('Already hit mate');
+      } else {
+        gameBoard[x].hit = true;
+        if (gameBoard[x].ship !== null) {
+          let shipName = gameBoard[x].ship;
+          shipName.hit();
+          console.log(shipName)
       }
-      return gameBoard[x];
+    }
+    return gameBoard[x];
     }
   }
 

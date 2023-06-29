@@ -162,7 +162,7 @@ function playerShipPlacement() {
   })
 }
 
-/* playerShipPlacement(); */
+playerShipPlacement();
 
 
 function cpuShipPlacement() {
@@ -260,6 +260,8 @@ function createCPUGameboard() {
         createDiv.classList.add('miss')
       }
       if (cpu.checkSunk() === true) {
+        const infoDiv = document.getElementById('info');
+        infoDiv.innerText = 'You won! All enemy ships have been sunk.';
         console.log('You won! All enemy ships have been sunk.');
       }
     })
@@ -291,6 +293,8 @@ function changePlayerBoard(i) {
     getDiv.classList.add('miss')
   }
   if (player.checkSunk() === true) {
+    const infoDiv = document.getElementById('info');
+    infoDiv.innerText = 'You lost! All your ships have been sunk.';
     console.log('You lost! All your ships have been sunk.');
   }
 }

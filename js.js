@@ -22,8 +22,6 @@ function Ship(name, length) {
 const Gameboard = () => {
   const gameBoard = [];
 
-    
-
   function createGameBoard() {
     for (let row = 0; row < 10; row++) {
       for (let col = 0; col < 10; col++) {
@@ -33,7 +31,7 @@ const Gameboard = () => {
   }
 
   function placeShip(ship, row, col, axis) {
-    const index = row * 10 + col;
+    const index = Number(row * 10) + Number(col);
     const increment = axis === 'horizontal' ? 1 : 10;
     
     if (
@@ -79,7 +77,9 @@ const Gameboard = () => {
     })
     
     if (totalSunk === 17) {
-      console.log('Game over!')
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -113,16 +113,14 @@ const Gameboard = () => {
     }
   }
 
-  // if all ships === sunk then gameOver
-
-
   createGameBoard();
 
   return { 
     gameBoard,
     placeShip,
     cpuPlaceShip,
-    receiveAttack
+    receiveAttack,
+    checkSunk
   }
 
 };
@@ -152,6 +150,29 @@ cpuShipArray.push(cpuCarrier, cpuBattleship, cpuDestroyer, cpuSubmarine, cpuPatr
     console.log('Game on!')
   }
 } */
+
+let player = Gameboard();
+
+let shipArray = [];
+
+const carrier = Ship('carrier', 5);
+const battleship = Ship('battleship', 4);
+const destroyer = Ship('destroyer', 3);
+const submarine = Ship('submarine', 3);
+const patrolBoat = Ship('patrolBoat', 2);
+
+shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
+
+function playerShipPlacement() {
+  shipArray.forEach(ship => {
+    let row = prompt(`Choose a row for ${ship.name}`);
+    let col = prompt(`Choose a col for ${ship.name}`);
+    let axis = prompt(`Choose a axis for ${ship.name}`);
+    player.placeShip(ship, row, col, axis)
+  })
+}
+
+playerShipPlacement();
 
 
 
@@ -205,8 +226,6 @@ function cpuShipPlacement() {
 }
 
 cpuShipPlacement()
-
-checkSunk()
 
 console.log(cpu)
 

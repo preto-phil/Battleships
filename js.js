@@ -173,8 +173,8 @@ function cpuShipPlacement() {
     let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
 
     while (
-      (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
-      (axis === 'vertical' && index >= (100 - (ship.length * 10) + 10))
+      (axis === 'horizontal' && rCol >= (10 - ship.length)) ||
+      (axis === 'vertical' && rRow >= (10 - ship.length))
     ) {
       rRow = Math.floor(Math.random() * 10);
       rCol = Math.floor(Math.random() * 10);
@@ -190,8 +190,8 @@ function cpuShipPlacement() {
         index = rRow * 10 + rCol;
         num = axis === 'horizontal' ? index + i : index + i * 10;
         while (
-          (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
-          (axis === 'vertical' && index >= (100 - (ship.length * 10) + 10))
+          (axis === 'horizontal' && rCol >= (10 - ship.length)) ||
+          (axis === 'vertical' && rRow >= (10 - ship.length))
         ) {
           rRow = Math.floor(Math.random() * 10);
           rCol = Math.floor(Math.random() * 10);
@@ -251,8 +251,28 @@ function createCPUGameboard() {
     createDiv.classList.add('cell', 'inactive');
     createDiv.innerText = '';
     cpuDiv.appendChild(createDiv);
+    createDiv.addEventListener('click', () => {
+      if (cell.ship !== null) {
+        createDiv.classList.add('hit');
+      } else {
+        createDiv.classList.add('miss')
+      }      
+    })
   })
 }
+
+
+
+/* function addCPUEventListener() {
+  cpu.gameBoard.forEach(cell => {
+    cpu.gameBoard[cell]
+    
+    const createDiv = document.createElement('div');
+    createDiv.classList.add('cell', 'inactive');
+    createDiv.innerText = '';
+    cpuDiv.appendChild(createDiv);
+  })
+} */
 
 createCPUGameboard();
 

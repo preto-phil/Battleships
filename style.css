@@ -98,8 +98,21 @@ main {
 }
 
 .cell {
-  border: 1px solid blue;
+  background-color: #3a3a3b;
+  
+  border: 1px solid rgb(69, 69, 143);
+
+  cursor: pointer;
 }
+
+.miss {
+  background-color: rgb(143, 0, 0);
+}
+
+.hit {
+  background-color: rgb(2, 112, 17);
+}
+
 
 /* Footer Section */
 

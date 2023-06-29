@@ -219,21 +219,17 @@ console.log(player)
 
 /* Game loop section */
 
-function gameLoop() {
-  while (
+function gameLoop(cellNum) {
+  if (
     (cpu.checkSunk() === false) ||
     (player.checkSunk() === false)
   ) {
-    let shot = prompt("Choose coordinates for your attack:")
-    cpu.receiveAttack(shot);
-    console.log(player.gameBoard[shot])
+    cpu.receiveAttack(cellNum);
     player.receiveAttack();
     if (cpu.checkSunk() === true) {
       console.log('You won! All enemy ships have been sunk.');
-      break;
     } else if (player.checkSunk() === true) {
       console.log('You lost! All your ships have been sunk.');
-      break;
     }
   }
 }
@@ -252,11 +248,20 @@ function createCPUGameboard() {
     createDiv.innerText = '';
     cpuDiv.appendChild(createDiv);
     createDiv.addEventListener('click', () => {
-      if (cell.ship !== null) {
+      let cellNum = (Number(cell.row) * 10 + Number(cell.col));
+
+      if (cell.ship !== null && cpu.checkSunk() === false) {
+        gameLoop(cellNum);
+        console.log(cellNum);
         createDiv.classList.add('hit');
-      } else {
+      } else if (cell.ship === null && cpu.checkSunk() === false) {
+        gameLoop(cellNum);
+        console.log(cellNum);
         createDiv.classList.add('miss')
-      }      
+      }
+      if (cpu.checkSunk() === true) {
+        console.log('You won! All enemy ships have been sunk.');
+      }
     })
   })
 }

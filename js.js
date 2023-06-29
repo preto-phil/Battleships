@@ -96,6 +96,7 @@ const Gameboard = () => {
           console.log(shipName)
       }
       gameBoard[randomNum].hit = true;
+      changePlayerBoard(randomNum);
       return gameBoard[randomNum];
     } else {
 
@@ -239,7 +240,6 @@ function gameLoop(cellNum) {
 /* UI Section */
 
 function createCPUGameboard() {
-
   const cpuDiv = document.getElementById('cpu-gb');
 
   cpu.gameBoard.forEach(cell => {
@@ -267,14 +267,45 @@ function createCPUGameboard() {
 }
 
 function createPlayerGameboard() {
-
   const playerDiv = document.getElementById('player-gb');
 
-  player.gameBoard.forEach(cell => {
+  for (let i = 0; i < 100; i++) {
+    const createDiv = document.createElement('div');
+    createDiv.classList.add('p-cell');
+    createDiv.setAttribute('id', `cell-${i}`)
+    createDiv.innerText = '';
+    playerDiv.appendChild(createDiv);
+  }
+}
+
+function changePlayerBoard(i) {
+  const getDiv = document.getElementById(`cell-${i}`);
+  console.log(getDiv)
+
+  if (player.gameBoard[i].ship !== null && player.checkSunk() === false) {
+    const getDiv = document.getElementById(`cell-${i}`);
+    getDiv.classList.add('hit');
+  } else if (player.gameBoard[i].ship === null && player.checkSunk() === false) {
+    const getDiv = document.getElementById(`cell-${i}`);
+    console.log(getDiv)
+    getDiv.classList.add('miss')
+  }
+  if (player.checkSunk() === true) {
+    console.log('You lost! All your ships have been sunk.');
+  }
+}
+
+
+/*   const getDiv = document.querySelector(`.cell-${i}`) */
+
+// if random number equal to i then change class
+
+
+/*   player.gameBoard.forEach(cell => {
     const createDiv = document.createElement('div');
     createDiv.classList.add('p-cell');
     createDiv.innerText = '';
-    playerDiv.appendChild(createDiv);
+    playerDiv.appendChild(createDiv); */
 
 /*     createDiv.addEventListener('click', () => {
       let cellNum = (Number(cell.row) * 10 + Number(cell.col));
@@ -291,9 +322,8 @@ function createPlayerGameboard() {
       if (player.checkSunk() === true) {
         console.log('You won! All enemy ships have been sunk.');
       }
-    }) */
-  })
-}
+    })
+   }) */
 
 
 /* function addCPUEventListener() {

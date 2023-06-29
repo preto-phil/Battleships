@@ -79,3 +79,21 @@ function Player(playerName) {
 
 
 }
+
+
+cpu.receiveAttack(6)
+cpu.receiveAttack(7)    
+cpu.receiveAttack(8)
+cpu.receiveAttack(14)
+cpu.receiveAttack(24)
+cpu.receiveAttack(34)
+cpu.receiveAttack(44)
+cpu.receiveAttack(54)
+cpu.receiveAttack(27)
+cpu.receiveAttack(28)
+cpu.receiveAttack(69)
+cpu.receiveAttack(68)
+cpu.receiveAttack(67)
+cpu.receiveAttack(50)
+cpu.receiveAttack(60)
+cpu.receiveAttack(70)

@@ -137,20 +137,6 @@ const cpuPatrolBoat = Ship('cpuPatrolBoat', 2);
 
 cpuShipArray.push(cpuCarrier, cpuBattleship, cpuDestroyer, cpuSubmarine, cpuPatrolBoat);
 
-/* function checkSunk() {
-  let totalSunk = 0;
-  cpuShipArray.forEach(ship => {
-    if (ship.sunk === true) {
-      totalSunk += 1;
-    }
-  })
-  if (totalSunk === 5) {
-    console.log("Game Over!")
-  } else {
-    console.log('Game on!')
-  }
-} */
-
 let player = Gameboard();
 
 let shipArray = [];
@@ -228,6 +214,7 @@ function cpuShipPlacement() {
 cpuShipPlacement()
 
 console.log(cpu)
+console.log(player)
 
 
 /* Game loop section */
@@ -241,3 +228,24 @@ console.log(cpu)
 // CPU attack Player cell
 // Check if all player ships sunk
 
+function gameLoop() {
+
+  while (
+    (cpu.checkSunk() === false) ||
+    (player.checkSunk() === false)
+  ) {
+    let shot = prompt("Choose coordinates for your attack:")
+    cpu.receiveAttack(shot);
+    console.log(player.gameBoard[shot])
+    player.receiveAttack();
+    if (cpu.checkSunk() === true) {
+      console.log('You won! All enemy ships have been sunk.');
+      break;
+    } else if (player.checkSunk() === true) {
+      console.log('You lost! All your ships have been sunk.');
+      break;
+    }
+  }
+}
+
+gameLoop();

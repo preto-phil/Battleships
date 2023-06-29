@@ -266,6 +266,34 @@ function createCPUGameboard() {
   })
 }
 
+function createPlayerGameboard() {
+
+  const playerDiv = document.getElementById('player-gb');
+
+  player.gameBoard.forEach(cell => {
+    const createDiv = document.createElement('div');
+    createDiv.classList.add('p-cell');
+    createDiv.innerText = '';
+    playerDiv.appendChild(createDiv);
+
+/*     createDiv.addEventListener('click', () => {
+      let cellNum = (Number(cell.row) * 10 + Number(cell.col));
+
+      if (cell.ship !== null && player.checkSunk() === false) {
+        gameLoop(cellNum);
+        console.log(cellNum);
+        createDiv.classList.add('hit');
+      } else if (cell.ship === null && player.checkSunk() === false) {
+        gameLoop(cellNum);
+        console.log(cellNum);
+        createDiv.classList.add('miss')
+      }
+      if (player.checkSunk() === true) {
+        console.log('You won! All enemy ships have been sunk.');
+      }
+    }) */
+  })
+}
 
 
 /* function addCPUEventListener() {
@@ -280,6 +308,7 @@ function createCPUGameboard() {
 } */
 
 createCPUGameboard();
+createPlayerGameboard();
 
 /* Open Github on icon click */
 

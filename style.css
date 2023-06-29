@@ -105,6 +105,11 @@ main {
   cursor: pointer;
 }
 
+.p-cell {
+  background-color: #3a3a3b;
+    border: 1px solid rgb(69, 69, 143);
+}
+
 .miss {
   background-color: rgb(143, 0, 0);
 }
@@ -113,6 +118,15 @@ main {
   background-color: rgb(2, 112, 17);
 }
 
+#player-gb {
+  height: 80%;
+  width: 80%;
+
+
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+}
 
 /* Footer Section */
 

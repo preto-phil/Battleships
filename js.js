@@ -125,6 +125,9 @@ const Gameboard = () => {
 
 };
 
+
+/* Create player and cpu game boards */
+
 let cpu = Gameboard();
 
 let cpuShipArray = []
@@ -159,9 +162,6 @@ function playerShipPlacement() {
 }
 
 /* playerShipPlacement(); */
-
-
-
 
 
 function cpuShipPlacement() {
@@ -219,17 +219,7 @@ console.log(player)
 
 /* Game loop section */
 
-// Create two game boards
-// Player selects specific cells to place ships (prompt?)
-// CPU automatically places ships
-// First turn is player
-// Player attack CPU cell
-// Check if all cpu ships sunk
-// CPU attack Player cell
-// Check if all player ships sunk
-
 function gameLoop() {
-
   while (
     (cpu.checkSunk() === false) ||
     (player.checkSunk() === false)
@@ -248,4 +238,31 @@ function gameLoop() {
   }
 }
 
-/* gameLoop(); */
+
+
+/* UI Section */
+
+function createCPUGameboard() {
+
+  const cpuDiv = document.getElementById('cpu-gb');
+
+  cpu.gameBoard.forEach(cell => {
+    const createDiv = document.createElement('div');
+    createDiv.classList.add('cell', 'inactive');
+    createDiv.innerText = '';
+    cpuDiv.appendChild(createDiv);
+  })
+}
+
+createCPUGameboard();
+
+/* Open Github on icon click */
+
+function openGithub() {
+  const githubIcon = document.getElementById('github-icon');
+  githubIcon.addEventListener('click', () => {
+    window.open('https://github.com/preto-phil');
+  });
+}
+
+openGithub();

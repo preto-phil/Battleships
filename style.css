@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  background-color: rgb(61, 59, 59);
+  background-color: rgb(20, 20, 20);
   color: whitesmoke;
   font-family: monospace;
 
@@ -85,6 +85,20 @@ main {
 
 #main-right {
   grid-area: 2 / 2 / 3 / 3;
+}
+
+#cpu-gb {
+  height: 80%;
+  width: 80%;
+
+
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.cell {
+  border: 1px solid blue;
 }
 
 /* Footer Section */

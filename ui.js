@@ -1,9 +1,24 @@
-function createHeader() {
-  const getBody = document.querySelector('body');
 
+function createCPUGameboard() {
+
+  const cpuDiv = document.getElementById('cpu-gb');
+
+  
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function openGithub() {
@@ -14,3 +29,5 @@ function openGithub() {
 }
 
 openGithub();
+
+

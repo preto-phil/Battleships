@@ -158,7 +158,7 @@ function playerShipPlacement() {
   })
 }
 
-playerShipPlacement();
+/* playerShipPlacement(); */
 
 
 
@@ -248,4 +248,4 @@ function gameLoop() {
   }
 }
 
-gameLoop();
+/* gameLoop(); */

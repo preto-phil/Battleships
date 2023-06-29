@@ -69,6 +69,20 @@ const Gameboard = () => {
     console.log(ship);
   }
 
+  function checkSunk() {
+    let totalSunk = 0;
+  
+    gameBoard.forEach(item => {
+      if (item.ship !== null && item.ship.sunk === true) {
+        totalSunk++;
+      }
+    })
+    
+    if (totalSunk === 17) {
+      console.log('Game over!')
+    }
+  }
+
   function receiveAttack(x) {
     // if statement added so that code can run in tests for specific numbers
     if (x === undefined) {
@@ -125,7 +139,7 @@ const cpuPatrolBoat = Ship('cpuPatrolBoat', 2);
 
 cpuShipArray.push(cpuCarrier, cpuBattleship, cpuDestroyer, cpuSubmarine, cpuPatrolBoat);
 
-function checkSunk() {
+/* function checkSunk() {
   let totalSunk = 0;
   cpuShipArray.forEach(ship => {
     if (ship.sunk === true) {
@@ -137,7 +151,11 @@ function checkSunk() {
   } else {
     console.log('Game on!')
   }
-}
+} */
+
+
+
+
 
 function cpuShipPlacement() {
 
@@ -191,3 +209,16 @@ cpuShipPlacement()
 checkSunk()
 
 console.log(cpu)
+
+
+/* Game loop section */
+
+// Create two game boards
+// Player selects specific cells to place ships (prompt?)
+// CPU automatically places ships
+// First turn is player
+// Player attack CPU cell
+// Check if all cpu ships sunk
+// CPU attack Player cell
+// Check if all player ships sunk
+

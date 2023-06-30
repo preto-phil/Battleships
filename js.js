@@ -154,11 +154,16 @@ const patrolBoat = Ship('patrolBoat', 2);
 shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
 
 function playerShipPlacement() {
+  let number = 0;
   shipArray.forEach(ship => {
-    let row = prompt(`Choose a row for ${ship.name}`);
+/*     let row = prompt(`Choose a row for ${ship.name}`);
     let col = prompt(`Choose a col for ${ship.name}`);
-    let axis = prompt(`Choose a axis for ${ship.name}`);
-    player.placeShip(ship, row, col, axis)
+    let axis = prompt(`Choose a axis for ${ship.name}`); */
+    let row = number;
+    let col = number;
+    let axis = 'vertical';
+    player.placeShip(ship, row, col, axis);
+    number++;
   })
 }
 
@@ -276,9 +281,16 @@ function createPlayerGameboard() {
     createDiv.classList.add('p-cell');
     createDiv.setAttribute('id', `cell-${i}`)
     createDiv.innerText = '';
+
+    createDiv.addEventListener('click', () => {
+      const index = [...playerDiv.children].indexOf(createDiv);
+      console.log(index);
+    })
+
     playerDiv.appendChild(createDiv);
   }
 }
+ 
 
 function changePlayerBoard(i) {
   const getDiv = document.getElementById(`cell-${i}`);

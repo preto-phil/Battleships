@@ -72,6 +72,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   border: 1px solid blueviolet;
 }
 
@@ -91,6 +92,12 @@ main {
 
 #main-right {
   grid-area: 2 / 2 / 3 / 3;
+}
+
+.grid-title {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 1rem;
 }
 
 #cpu-gb {
@@ -174,4 +181,36 @@ footer {
 
 #github-icon img:hover {
   height: 85%;
+}
+
+
+
+
+
+/* Axis */
+
+.horizontal {
+  background-color: rgb(204, 203, 203);
+  border-radius: 10px 0px 0px 10px;
+
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+
+  cursor: pointer;
+}
+
+.vertical {
+  background-color: rgb(204, 203, 203);
+  border-radius: 0px 10px 10px 0px;
+
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+ 
+  cursor: pointer;
+}
+
+.active-axis {
+  color: black;
+  font-weight: 600;
+  background-color: #bbb;
 }

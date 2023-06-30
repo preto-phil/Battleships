@@ -30,8 +30,7 @@ const Gameboard = () => {
     }
   }
 
-  function placeShip(ship, row, col, axis) {
-    const index = Number(row * 10) + Number(col);
+  function placeShip(ship, index, axis) {
     const increment = axis === 'horizontal' ? 1 : 10;
     
     if (
@@ -49,6 +48,8 @@ const Gameboard = () => {
         (axis === 'vertical' && gameBoard[verNum].ship !== null)
       ) {
         throw new Error('Ship placement overlapping');
+        // clear board
+        /
       } else {
         const cell = gameBoard[index + i * increment];
         cell.ship = ship;
@@ -153,17 +154,10 @@ const patrolBoat = Ship('patrolBoat', 2);
 
 shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
 
-function playerShipPlacement() {
-  let number = 0;
+function playerShipPlacement(index) {
   shipArray.forEach(ship => {
-/*     let row = prompt(`Choose a row for ${ship.name}`);
-    let col = prompt(`Choose a col for ${ship.name}`);
-    let axis = prompt(`Choose a axis for ${ship.name}`); */
-    let row = number;
-    let col = number;
     let axis = 'vertical';
-    player.placeShip(ship, row, col, axis);
-    number++;
+    player.placeShip(ship, index, axis);
   })
 }
 
@@ -285,6 +279,7 @@ function createPlayerGameboard() {
     createDiv.addEventListener('click', () => {
       const index = [...playerDiv.children].indexOf(createDiv);
       console.log(index);
+      player.playerShipPlacement(index)
     })
 
     playerDiv.appendChild(createDiv);

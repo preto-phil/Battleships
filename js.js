@@ -43,6 +43,7 @@ const Gameboard = () => {
     for (let i = 0; i < ship.length; i++) {
       let horNum = index + i;
       let verNum = index + i * 10;
+      let cellNum = axis === 'horizontal' ? index + i : index + i * 10;
       if (
         (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
         (axis === 'vertical' && gameBoard[verNum].ship !== null)
@@ -51,6 +52,7 @@ const Gameboard = () => {
       } else {
         const cell = gameBoard[index + i * increment];
         cell.ship = ship;
+        shipUI(cellNum);
       }
     }
   }
@@ -152,6 +154,9 @@ const patrolBoat = Ship('patrolBoat', 2);
 
 shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
 
+
+/* Function that places player ships by calling placeShip method of Gameboard */
+
 let shipNum = 0;
 
 function playerShipPlacement(index) {
@@ -163,8 +168,8 @@ function playerShipPlacement(index) {
   }
 }
 
-// async function
 
+/* Function that generates a valid random number and then places cpu ships by calling cpuPlaceShip method of Gameboard  */
 
 function cpuShipPlacement() {
 
@@ -293,9 +298,7 @@ function changePlayerBoard(i) {
   const getDiv = document.getElementById(`cell-${i}`);
   console.log(getDiv)
 
-  
-
-  if (player.gameBoard[i].ship !== null && player.checkSunk() === false) {
+    if (player.gameBoard[i].ship !== null && player.checkSunk() === false) {
     const getDiv = document.getElementById(`cell-${i}`);
     getDiv.classList.add('hit');
   } else if (player.gameBoard[i].ship === null && player.checkSunk() === false) {
@@ -310,8 +313,17 @@ function changePlayerBoard(i) {
   }
 }
 
+function shipUI(cellNum) {
+  const getDiv = document.getElementById(`cell-${cellNum}`);
+
+  getDiv.classList.add('ship');
+}
+
+
 createCPUGameboard();
 createPlayerGameboard();
+
+
 
 /* Open Github on icon click */
 

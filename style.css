@@ -131,6 +131,10 @@ main {
   background-color: rgb(2, 112, 17);
 }
 
+.ship {
+  background-color: rgb(100, 100, 199);
+}
+
 #player-gb {
   height: 80%;
   width: 80%;

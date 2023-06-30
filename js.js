@@ -48,8 +48,6 @@ const Gameboard = () => {
         (axis === 'vertical' && gameBoard[verNum].ship !== null)
       ) {
         throw new Error('Ship placement overlapping');
-        // clear board
-        /
       } else {
         const cell = gameBoard[index + i * increment];
         cell.ship = ship;
@@ -154,14 +152,18 @@ const patrolBoat = Ship('patrolBoat', 2);
 
 shipArray.push(carrier, battleship, destroyer, submarine, patrolBoat);
 
+let shipNum = 0;
+
 function playerShipPlacement(index) {
-  shipArray.forEach(ship => {
+  if (shipNum < 5) {
+    let ship = shipArray[shipNum];
     let axis = 'vertical';
     player.placeShip(ship, index, axis);
-  })
+    shipNum++;
+  }
 }
 
-playerShipPlacement();
+// async function
 
 
 function cpuShipPlacement() {
@@ -279,7 +281,7 @@ function createPlayerGameboard() {
     createDiv.addEventListener('click', () => {
       const index = [...playerDiv.children].indexOf(createDiv);
       console.log(index);
-      player.playerShipPlacement(index)
+      playerShipPlacement(index)
     })
 
     playerDiv.appendChild(createDiv);
@@ -290,6 +292,8 @@ function createPlayerGameboard() {
 function changePlayerBoard(i) {
   const getDiv = document.getElementById(`cell-${i}`);
   console.log(getDiv)
+
+  
 
   if (player.gameBoard[i].ship !== null && player.checkSunk() === false) {
     const getDiv = document.getElementById(`cell-${i}`);
@@ -305,48 +309,6 @@ function changePlayerBoard(i) {
     console.log('You lost! All your ships have been sunk.');
   }
 }
-
-
-/*   const getDiv = document.querySelector(`.cell-${i}`) */
-
-// if random number equal to i then change class
-
-
-/*   player.gameBoard.forEach(cell => {
-    const createDiv = document.createElement('div');
-    createDiv.classList.add('p-cell');
-    createDiv.innerText = '';
-    playerDiv.appendChild(createDiv); */
-
-/*     createDiv.addEventListener('click', () => {
-      let cellNum = (Number(cell.row) * 10 + Number(cell.col));
-
-      if (cell.ship !== null && player.checkSunk() === false) {
-        gameLoop(cellNum);
-        console.log(cellNum);
-        createDiv.classList.add('hit');
-      } else if (cell.ship === null && player.checkSunk() === false) {
-        gameLoop(cellNum);
-        console.log(cellNum);
-        createDiv.classList.add('miss')
-      }
-      if (player.checkSunk() === true) {
-        console.log('You won! All enemy ships have been sunk.');
-      }
-    })
-   }) */
-
-
-/* function addCPUEventListener() {
-  cpu.gameBoard.forEach(cell => {
-    cpu.gameBoard[cell]
-    
-    const createDiv = document.createElement('div');
-    createDiv.classList.add('cell', 'inactive');
-    createDiv.innerText = '';
-    cpuDiv.appendChild(createDiv);
-  })
-} */
 
 createCPUGameboard();
 createPlayerGameboard();

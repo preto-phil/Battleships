@@ -166,6 +166,10 @@ function playerShipPlacement(index) {
     player.placeShip(ship, index, axis);
     shipNum++;
   }
+
+  if (shipNum === 5) {
+    displayCPUGrid();
+  }
 }
 
 
@@ -178,33 +182,18 @@ function cpuShipPlacement() {
     let rCol = Math.floor(Math.random() * 10);
     let index = rRow * 10 + rCol;
     let axis = Math.floor(Math.random() * 2) === 1 ? 'horizontal' : 'vertical';
-
-    while (
-      (axis === 'horizontal' && rCol >= (10 - ship.length)) ||
-      (axis === 'vertical' && rRow >= (10 - ship.length))
-    ) {
-      rRow = Math.floor(Math.random() * 10);
-      rCol = Math.floor(Math.random() * 10);
-      index = rRow * 10 + rCol;
-    }
-
     let i = 0;
     while (i < ship.length) {     
       let num = axis === 'horizontal' ? index + i : index + i * 10;
-      while (cpu.gameBoard[num].ship !== null) {
+      while (
+        (cpu.gameBoard[num].ship !== null) ||
+        (axis === 'horizontal' && rCol >= (10 - ship.length)) ||
+        (axis === 'vertical' && rRow >= (10 - ship.length))
+      ) {
         rRow = Math.floor(Math.random() * 10);
         rCol = Math.floor(Math.random() * 10);
         index = rRow * 10 + rCol;
-        num = axis === 'horizontal' ? index + i : index + i * 10;
-        while (
-          (axis === 'horizontal' && rCol >= (10 - ship.length)) ||
-          (axis === 'vertical' && rRow >= (10 - ship.length))
-        ) {
-          rRow = Math.floor(Math.random() * 10);
-          rCol = Math.floor(Math.random() * 10);
-          index = rRow * 10 + rCol;
-          num = axis === 'horizontal' ? index + i : index + i * 10;
-        }    
+        num = axis === 'horizontal' ? index + i : index + i * 10;  
         i = 0;
       }
 
@@ -300,6 +289,7 @@ function changePlayerBoard(i) {
 
     if (player.gameBoard[i].ship !== null && player.checkSunk() === false) {
     const getDiv = document.getElementById(`cell-${i}`);
+    getDiv.innerText = 'X';
     getDiv.classList.add('hit');
   } else if (player.gameBoard[i].ship === null && player.checkSunk() === false) {
     const getDiv = document.getElementById(`cell-${i}`);
@@ -315,10 +305,13 @@ function changePlayerBoard(i) {
 
 function shipUI(cellNum) {
   const getDiv = document.getElementById(`cell-${cellNum}`);
-
   getDiv.classList.add('ship');
 }
 
+function displayCPUGrid() {
+  const cpuGrid = document.getElementById('main-right');
+  cpuGrid.style.display = 'flex';
+}
 
 createCPUGameboard();
 createPlayerGameboard();

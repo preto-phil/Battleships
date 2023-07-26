@@ -33,6 +33,7 @@ const Gameboard = () => {
   function placeShip(ship, index, axis) {
     const increment = axis === 'horizontal' ? 1 : 10;
     
+    // Test if placement will be out of bounds
     if (
       (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
       (axis === 'vertical' && index >= (100 - ship.length * 10 + 10))
@@ -40,10 +41,13 @@ const Gameboard = () => {
       throw new Error('Ship placement out of bounds');
     }
 
+    // Add ship to gameBoard if conditions satisfactory
     for (let i = 0; i < ship.length; i++) {
       let horNum = index + i;
       let verNum = index + i * 10;
       let cellNum = axis === 'horizontal' ? index + i : index + i * 10;
+
+      // Test if placement will overlap with prior placements
       if (
         (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
         (axis === 'vertical' && gameBoard[verNum].ship !== null)
@@ -85,7 +89,7 @@ const Gameboard = () => {
   }
 
   function receiveAttack(x) {
-    // if statement added so that code can run in tests for specific numbers
+    // player receives random attack from cpu
     if (x === undefined) {
       let randomNum = Math.floor(Math.random() * 100);
       while (gameBoard[randomNum].hit === true) {
@@ -101,6 +105,7 @@ const Gameboard = () => {
       return gameBoard[randomNum];
     } else {
 
+      // cpu receives attack from player 
       if (gameBoard[x].hit === true) {
         console.log('Already hit mate');
       } else {
@@ -130,6 +135,8 @@ const Gameboard = () => {
 
 /* Create player and cpu game boards */
 
+/* CPU Gameboard */
+
 let cpu = Gameboard();
 
 let cpuShipArray = []
@@ -141,6 +148,8 @@ const cpuSubmarine = Ship('cpuSubmarine', 3);
 const cpuPatrolBoat = Ship('cpuPatrolBoat', 2);
 
 cpuShipArray.push(cpuCarrier, cpuBattleship, cpuDestroyer, cpuSubmarine, cpuPatrolBoat);
+
+/* Player Gameboard */
 
 let player = Gameboard();
 
@@ -234,6 +243,7 @@ function gameLoop(cellNum) {
 
 /* UI Section */
 
+/* Function that creates game board in the UI */
 function createCPUGameboard() {
   const cpuDiv = document.getElementById('cpu-gb');
 
@@ -242,6 +252,9 @@ function createCPUGameboard() {
     createDiv.classList.add('cell', 'inactive');
     createDiv.innerText = '';
     cpuDiv.appendChild(createDiv);
+
+    // Event listener that enables calling gameLoop when cell clicked
+    // Also creates div's and classes for UI purposes
     createDiv.addEventListener('click', () => {
       let cellNum = (Number(cell.row) * 10 + Number(cell.col));
 
@@ -263,6 +276,7 @@ function createCPUGameboard() {
   })
 }
 
+// creates the game board in ui
 function createPlayerGameboard() {
   const playerDiv = document.getElementById('player-gb');
 
@@ -282,12 +296,9 @@ function createPlayerGameboard() {
   }
 }
  
-
+// display attack received on player board
 function changePlayerBoard(i) {
-  const getDiv = document.getElementById(`cell-${i}`);
-  console.log(getDiv)
-
-    if (player.gameBoard[i].ship !== null && player.checkSunk() === false) {
+  if (player.gameBoard[i].ship !== null && player.checkSunk() === false) {
     const getDiv = document.getElementById(`cell-${i}`);
     getDiv.innerText = 'X';
     getDiv.classList.add('hit');

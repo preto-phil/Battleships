@@ -171,9 +171,17 @@ let shipNum = 0;
 function playerShipPlacement(index) {
   if (shipNum < 5) {
     let ship = shipArray[shipNum];
-    let axis = 'vertical';
-    player.placeShip(ship, index, axis);
-    shipNum++;
+
+    let axis_h = document.querySelector('.axis-h');
+    if (axis_h.matches('.active')) {
+      let axis = 'horizontal';
+      player.placeShip(ship, index, axis);
+      shipNum++;
+    } else {
+      let axis = 'vertical';
+      player.placeShip(ship, index, axis);
+      shipNum++;
+    }
   }
 
   if (shipNum === 5) {
@@ -344,9 +352,10 @@ function toggleAxis() {
     axis_h.classList.add('active');}
 }
 
-
-
-
+const axisOptions = document.querySelector('.axis-options');
+axisOptions.addEventListener('click', () => {
+  toggleAxis();
+});
 
 /* Function that hides info - called when all player ships are placed */
 

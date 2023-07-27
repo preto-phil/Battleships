@@ -33,9 +33,18 @@ const Gameboard = () => {
   function placeShip(ship, index, axis) {
     const increment = axis === 'horizontal' ? 1 : 10;
     
+    let col;
+    if (index > 9) {
+      col = index.toString()[1];
+    } else {
+      col = index;
+    }
+    console.log(col)
+
     // Test if placement will be out of bounds
     if (
       (axis === 'horizontal' && index >= (100 - ship.length + 1)) ||
+      (axis === 'horizontal' && col >= (10 - ship.length + 1)) ||
       (axis === 'vertical' && index >= (100 - ship.length * 10 + 10))
     ) {
       throw new Error('Ship placement out of bounds');

@@ -329,6 +329,11 @@ createPlayerGameboard();
 
 
 
+
+
+
+
+
 /* Open Github on icon click */
 
 function openGithub() {

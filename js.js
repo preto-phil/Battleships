@@ -329,9 +329,24 @@ createPlayerGameboard();
 
 
 
+/* Toggle axis options */
 
+function toggleAxis() {
+  const axis_h = document.getElementsByClassName('axis-h')[0];
+  const axis_v = document.getElementsByClassName('axis-v')[0];
 
+  if (axis_h.classList.contains('active')) {
+    axis_h.classList.remove('active');
+    axis_v.classList.add('active');
+  } else {
+    axis_v.classList.remove('active');
+    axis_h.classList.add('active');}
+}
 
+const axisOptions = document.querySelector('.axis-options');
+axisOptions.addEventListener('click', () => {
+  toggleAxis();
+});
 
 
 /* Open Github on icon click */

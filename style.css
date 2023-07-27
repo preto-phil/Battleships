@@ -111,13 +111,12 @@ main {
   justify-content: center;
 
   font-size: 2rem;
-  cursor: pointer;
 }
 
-/* .axis-h:hover,
+.axis-h:hover,
 .axis-v:hover {
-  font-size: 2.1rem;
-} */
+  cursor: pointer;
+}
 
 .axis-h {
   height: fit-content;

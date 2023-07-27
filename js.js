@@ -196,6 +196,7 @@ function playerShipPlacement(index) {
   if (shipNum === 5) {
     displayCPUGrid();
     hideAxis();
+    startInfo();
   }
 }
 
@@ -280,10 +281,12 @@ function createCPUGameboard() {
         gameLoop(cellNum);
         console.log(cellNum);
         createDiv.classList.add('hit');
+        hitInfo();
       } else if (cell.ship === null && cpu.checkSunk() === false) {
         gameLoop(cellNum);
         console.log(cellNum);
-        createDiv.classList.add('miss')
+        createDiv.classList.add('miss');
+        misInfo();
       }
       if (cpu.checkSunk() === true) {
         const infoDiv = document.getElementById('info');
@@ -345,6 +348,30 @@ function displayCPUGrid() {
 createCPUGameboard();
 createPlayerGameboard();
 
+
+
+/* Display info in info div */
+function displayInfo() {
+  const infoDiv = document.getElementById('info');
+  infoDiv.innerText = "Place Your Ships"
+}
+
+displayInfo();
+
+function startInfo() {
+  const infoDiv = document.getElementById('info');
+  infoDiv.innerText = "Time to start! Click on a cell in the enemy grid to attack!"
+}
+
+function hitInfo() {
+  const infoDiv = document.getElementById('info');
+  infoDiv.innerText = "Nice! You hit an enemy ship! Carry on..."
+}
+
+function misInfo() {
+  const infoDiv = document.getElementById('info');
+  infoDiv.innerText = "You missed! Try again..."
+}
 
 
 /* Toggle axis options */

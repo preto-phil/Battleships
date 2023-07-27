@@ -178,6 +178,7 @@ function playerShipPlacement(index) {
 
   if (shipNum === 5) {
     displayCPUGrid();
+    hideAxis();
   }
 }
 
@@ -343,11 +344,16 @@ function toggleAxis() {
     axis_h.classList.add('active');}
 }
 
-const axisOptions = document.querySelector('.axis-options');
-axisOptions.addEventListener('click', () => {
-  toggleAxis();
-});
 
+
+
+
+/* Function that hides info - called when all player ships are placed */
+
+function hideAxis() {
+  const axisInfoBlock = document.querySelector('#main-right-axis');
+  axisInfoBlock.style.display = 'none';
+}
 
 /* Open Github on icon click */
 

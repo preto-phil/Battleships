@@ -70,7 +70,7 @@ header {
   text-shadow: 2px 2px 12px violet;
 }
 
-.theme-btn {
+#theme-btn {
   padding: 0.5rem;
   border-radius: 10px;
   border: 2px solid blueviolet;
@@ -105,8 +105,8 @@ main {
 }
 
 #info {
-  color: whitesmoke;
-  font-weight: 500;
+/*   color: whitesmoke;
+ */  font-weight: 500;
   font-size: 2rem;
 }
 
@@ -251,7 +251,7 @@ footer {
 #footer-text {  
   font-size: 1rem;
   font-weight: 600;
-  color: whitesmoke;
+/*   color: whitesmoke; */
   text-shadow: 2px 2px 12px violet;
   width: 50%;
   padding-right: 1rem;

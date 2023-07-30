@@ -404,8 +404,15 @@ function hideAxis() {
 
 function toggleTheme() {
   const themeDiv = document.querySelector('#theme');
+  const themeBtn = document.querySelector('#theme-btn');
   themeDiv.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
+    
+    if (document.body.classList.contains('light-mode')) {
+      themeBtn.innerText = 'Dark Mode';
+    } else {
+      themeBtn.innerText = 'Light Mode';
+    }
   }); 
 }
 

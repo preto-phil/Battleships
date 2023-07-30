@@ -409,6 +409,7 @@ function toggleTheme() {
   }); 
 }
 
+toggleTheme();
 
 /* Open Github on icon click */
 

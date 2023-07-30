@@ -277,12 +277,12 @@ function createCPUGameboard() {
     createDiv.addEventListener('click', () => {
       let cellNum = (Number(cell.row) * 10 + Number(cell.col));
 
-      if (cell.ship !== null && cpu.checkSunk() === false) {
+      if (cell.hit === false && cell.ship !== null && cpu.checkSunk() === false) {
         gameLoop(cellNum);
         console.log(cellNum);
         createDiv.classList.add('hit');
         hitInfo();
-      } else if (cell.ship === null && cpu.checkSunk() === false) {
+      } else if (cell.hit === false && cell.ship === null && cpu.checkSunk() === false) {
         gameLoop(cellNum);
         console.log(cellNum);
         createDiv.classList.add('miss');
@@ -407,7 +407,7 @@ function toggleTheme() {
   const themeBtn = document.querySelector('#theme-btn');
   themeDiv.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
-    
+
     if (document.body.classList.contains('light-mode')) {
       themeBtn.innerText = 'Dark Mode';
     } else {

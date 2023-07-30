@@ -400,6 +400,16 @@ function hideAxis() {
   axisInfoBlock.style.display = 'none';
 }
 
+/* Dark theme / light theme */
+
+function toggleTheme() {
+  const themeDiv = document.querySelector('#theme');
+  themeDiv.addEventListener('click', () => {
+    themeDiv.classList.toggle('light-mode');
+  }); 
+}
+
+
 /* Open Github on icon click */
 
 function openGithub() {

@@ -405,7 +405,7 @@ function hideAxis() {
 function toggleTheme() {
   const themeDiv = document.querySelector('#theme');
   themeDiv.addEventListener('click', () => {
-    themeDiv.classList.toggle('light-mode');
+    document.body.classList.toggle('light-mode');
   }); 
 }
 

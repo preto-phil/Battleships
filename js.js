@@ -1,3 +1,11 @@
+let randomAdjacent;
+let n;
+let adjacentCells;
+let adjacentChoice;
+let cellHit;
+let hitCell = [];
+
+
 function Ship(name, length) {
 
   function hit() {
@@ -97,24 +105,9 @@ const Gameboard = () => {
     }
   }
 
-  function receiveAttack(x) {
-    // player receives random attack from cpu
-    if (x === undefined) {
-      let randomNum = Math.floor(Math.random() * 100);
-      while (gameBoard[randomNum].hit === true) {
-        randomNum = Math.floor(Math.random() * 100);
-      }
-      if (gameBoard[randomNum].ship !== null) {
-          let shipName = gameBoard[randomNum].ship;
-          shipName.hit();      
-          console.log(shipName)
-      }
-      gameBoard[randomNum].hit = true;
-      changePlayerBoard(randomNum);
-      return gameBoard[randomNum];
-    } else {
-
-      // cpu receives attack from player 
+  function attackCPU(x) {
+    // cpu receives attack from player 
+    if (x !== undefined) {
       if (gameBoard[x].hit === true) {
         console.log('Already hit mate');
       } else {
@@ -125,7 +118,56 @@ const Gameboard = () => {
           console.log(shipName)
       }
     }
-    return gameBoard[x];
+      return gameBoard[x];
+    }
+  }
+
+  function receiveAttack(x) {
+    // player receives random attack from cpu
+    cellHit = false;
+
+    if (x === undefined) {
+      let randomNum = Math.floor(Math.random() * 100);
+      while (gameBoard[randomNum].hit === true) {
+        randomNum = Math.floor(Math.random() * 100);
+      }
+      if (gameBoard[randomNum].ship !== null) {
+          let shipName = gameBoard[randomNum].ship;
+          shipName.hit();      
+          console.log(shipName)
+          hitCell.push(randomNum);
+          if (cellHit === true) {
+            randomAdjacent;
+          } else {
+            randomAdjacent = Math.floor(Math.random() * 4);
+          }
+          console.log('randomAdjacent = ' + randomAdjacent);
+          n = hitCell[0];
+          console.log('n = ' + n);
+          adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
+          adjacentChoice = adjacentCells[randomAdjacent];
+          console.log(hitCell);
+          console.log(adjacentChoice);
+          cellHit = true;
+      } else {
+        cellHit = false;
+      }
+      gameBoard[randomNum].hit = true;
+      changePlayerBoard(randomNum);
+      return gameBoard[randomNum];
+    } 
+    
+    // cpu receives attack from player 
+    if (x !== undefined) {
+      gameBoard[x].hit = true;
+      if (gameBoard[x].ship !== null) {
+        let shipName = gameBoard[x].ship;
+        shipName.hit();
+        console.log(shipName)
+        cellHit = true;
+      }
+      changePlayerBoard(x);
+      return gameBoard[x];  
     }
   }
 
@@ -136,7 +178,8 @@ const Gameboard = () => {
     placeShip,
     cpuPlaceShip,
     receiveAttack,
-    checkSunk
+    checkSunk,
+    attackCPU
   }
 
 };
@@ -248,17 +291,28 @@ function gameLoop(cellNum) {
     (cpu.checkSunk() === false) ||
     (player.checkSunk() === false)
   ) {
-    cpu.receiveAttack(cellNum);
-    player.receiveAttack();
-    if (cpu.checkSunk() === true) {
-      console.log('You won! All enemy ships have been sunk.');
-    } else if (player.checkSunk() === true) {
-      console.log('You lost! All your ships have been sunk.');
+    cpu.attackCPU(cellNum);
+
+    if (cellHit === true) {
+      player.receiveAttack(adjacentChoice);
+    } else {
+      player.receiveAttack();
     }
   }
 }
 
+/* CPU choose adjacent cell */
 
+
+
+
+
+
+/* if previous attack === ship hit 
+  then call receiveAttack on a valid adjacent cell
+
+else if previous attack !== ship hit
+  then call receiveAttack on a random valid cell */
 
 /* UI Section */
 

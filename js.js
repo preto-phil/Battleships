@@ -58,22 +58,41 @@ const Gameboard = () => {
       throw new Error('Ship placement out of bounds');
     }
 
-    // Add ship to gameBoard if conditions satisfactory
+    let validity = false;
+
     for (let i = 0; i < ship.length; i++) {
       let horNum = index + i;
       let verNum = index + i * 10;
-      let cellNum = axis === 'horizontal' ? index + i : index + i * 10;
-
-      // Test if placement will overlap with prior placements
       if (
         (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
         (axis === 'vertical' && gameBoard[verNum].ship !== null)
       ) {
-        throw new Error('Ship placement overlapping');
+        validity = false;
+        break;
       } else {
-        const cell = gameBoard[index + i * increment];
-        cell.ship = ship;
-        shipUI(cellNum);
+        validity = true;
+      }
+    }
+
+    // Add ship to gameBoard if conditions satisfactory
+    if (validity === true) {
+      for (let i = 0; i < ship.length; i++) {
+
+        let horNum = index + i;
+        let verNum = index + i * 10;
+        let cellNum = axis === 'horizontal' ? index + i : index + i * 10;
+  
+        // Test if placement will overlap with prior placements
+        if (
+          (axis === 'horizontal' && gameBoard[horNum].ship !== null) ||
+          (axis === 'vertical' && gameBoard[verNum].ship !== null)
+        ) {
+          throw new Error('Ship placement overlapping');
+        } else {
+          const cell = gameBoard[index + i * increment];
+          cell.ship = ship;
+          shipUI(cellNum);
+        }
       }
     }
   }
@@ -136,19 +155,7 @@ const Gameboard = () => {
           shipName.hit();      
           console.log(shipName)
           hitCell.push(randomNum);
-          if (cellHit === true) {
-            randomAdjacent;
-          } else {
-            randomAdjacent = Math.floor(Math.random() * 4);
-          }
-          console.log('randomAdjacent = ' + randomAdjacent);
-          n = hitCell[0];
-          console.log('n = ' + n);
-          adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
-          adjacentChoice = adjacentCells[randomAdjacent];
-          console.log(hitCell);
-          console.log(adjacentChoice);
-          cellHit = true;
+          getAdjacentCell(randomNum)
       } else {
         cellHit = false;
       }
@@ -165,6 +172,8 @@ const Gameboard = () => {
         shipName.hit();
         console.log(shipName)
         cellHit = true;
+      } else {
+        cellHit = false;
       }
       changePlayerBoard(x);
       return gameBoard[x];  
@@ -303,7 +312,24 @@ function gameLoop(cellNum) {
 
 /* CPU choose adjacent cell */
 
-
+function getAdjacentCell(c) {
+  hitCell.push(c);
+  if (cellHit !== true) {
+    do {
+      randomAdjacent = Math.floor(Math.random() * 4);
+      n = hitCell[hitCell.length - 1];
+      adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
+      adjacentChoice = adjacentCells[randomAdjacent];
+      console.log(hitCell);
+      console.log(adjacentChoice);
+      cellHit = true;
+    }
+    while ( adjacentChoice < 0 || adjacentChoice > 99 ) 
+  }
+  // if adjacent cell less than 0 or bigger than 99 then invalid
+  // if adjacent cell is already hit then invalid
+  // if adjacent cell goes from 9 to 10 invalid
+}
 
 
 

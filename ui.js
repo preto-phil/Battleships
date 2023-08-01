@@ -9,19 +9,19 @@ function getAdjacentCell(c) {
 
 
   hitCell.push(c);
-  if (cellHit === true) {
-    randomAdjacent;
-  } else {
-    randomAdjacent = Math.floor(Math.random() * 4);
+  if (cellHit !== true) {
+    while ( adjacentChoice < 0 || adjacentChoice > 99 ) {
+      randomAdjacent = Math.floor(Math.random() * 4);
+      n = hitCell[hitCell.length - 1];
+      adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
+      adjacentChoice = adjacentCells[randomAdjacent];
+      console.log(hitCell);
+      console.log(adjacentChoice);
+      cellHit = true;
+    }
   }
-  console.log('randomAdjacent = ' + randomAdjacent);
-  n = hitCell[0];
-  console.log('n = ' + n);
-  adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
-  adjacentChoice = adjacentCells[randomAdjacent];
-  console.log(hitCell);
-  console.log(adjacentChoice);
-  cellHit = true;
+  
+ 
 
   // if adjacent cell less than 0 or bigger than 99 then invalid
   // if adjacent cell is already hit then invalid
@@ -45,21 +45,8 @@ function receiveAttack(x) {
         let shipName = gameBoard[randomNum].ship;
         shipName.hit();      
         console.log(shipName)
-        
         hitCell.push(randomNum);
-        if (cellHit === true) {
-          randomAdjacent;
-        } else {
-          randomAdjacent = Math.floor(Math.random() * 4);
-        }
-        console.log('randomAdjacent = ' + randomAdjacent);
-        n = hitCell[0];
-        console.log('n = ' + n);
-        adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
-        adjacentChoice = adjacentCells[randomAdjacent];
-        console.log(hitCell);
-        console.log(adjacentChoice);
-        cellHit = true;
+        getAdjacentCell(randomNum)
     } else {
       cellHit = false;
     }

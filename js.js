@@ -252,6 +252,10 @@ function playerShipPlacement(index) {
   }
 }
 
+// Bug: as op dieselfde cell click dan neem shipNum steeds toe
+// So moet manier kry om te verhoed dat op dieselfde cell gecklick word
+// Moontlik gebruik maak van conditional statement
+// if / while cell clicked same as cell already occupied by ship then do not execute code
 
 /* Function that generates a valid random number and then places cpu ships by calling cpuPlaceShip method of Gameboard  */
 

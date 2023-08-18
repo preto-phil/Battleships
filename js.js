@@ -5,6 +5,7 @@ let adjacentChoice;
 let cellHit;
 let hitCell = [];
 
+/* Ship Factory function */
 
 function Ship(name, length) {
 
@@ -26,6 +27,8 @@ function Ship(name, length) {
     isSunk,
   }
 };
+
+/* Gameboard Factory function */
 
 const Gameboard = () => {
   const gameBoard = [];
@@ -233,8 +236,8 @@ function playerShipPlacement(index) {
   if (shipNum < 5) {
     let ship = shipArray[shipNum];
 
-    // FIX NEEDED: 
-    // if cell does not contain ship then execute code below
+    // Only place ship if cell does not contain ship
+
     if (player.gameBoard[index].ship === null) {
       let axis_h = document.querySelector('.axis-h');
       if (axis_h.matches('.active')) {
@@ -255,11 +258,6 @@ function playerShipPlacement(index) {
     startInfo();
   }
 }
-
-// Bug: as op dieselfde cell click dan neem shipNum steeds toe
-// So moet manier kry om te verhoed dat op dieselfde cell gecklick word
-// Moontlik gebruik maak van conditional statement
-// if / while cell clicked same as cell already occupied by ship then do not execute code
 
 /* Function that generates a valid random number and then places cpu ships by calling cpuPlaceShip method of Gameboard  */
 
@@ -311,6 +309,7 @@ function gameLoop(cellNum) {
     cpu.attackCPU(cellNum);
 
     if (cellHit === true) {
+      getAdjacentCell(adjacentChoice)
       player.receiveAttack(adjacentChoice);
     } else {
       player.receiveAttack();
@@ -322,7 +321,7 @@ function gameLoop(cellNum) {
 
 function getAdjacentCell(c) {
   hitCell.push(c);
-  if (cellHit !== true) {
+
     do {
       randomAdjacent = Math.floor(Math.random() * 4);
       n = hitCell[hitCell.length - 1];
@@ -333,13 +332,19 @@ function getAdjacentCell(c) {
       cellHit = true;
     }
     while ( adjacentChoice < 0 || adjacentChoice > 99 ) 
-  }
+
   // if adjacent cell less than 0 or bigger than 99 then invalid
   // if adjacent cell is already hit then invalid
   // if adjacent cell goes from 9 to 10 invalid
 }
 
+/* 
 
+PROBLEM: After adjacent cell with ship hit then attacks on player gameboard stops - perhaps that same cell is hit multiple times?
+
+FIX NEEDED: After successfully hitting adjacent cell, then hit following adjacent cell
+
+*/
 
 
 /* if previous attack === ship hit 

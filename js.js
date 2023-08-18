@@ -169,6 +169,9 @@ const Gameboard = () => {
     
     // cpu receives attack from player 
     if (x !== undefined) {
+      if (gameBoard[x].hit === true) {
+        player.receiveAttack();
+      }
       gameBoard[x].hit = true;
       if (gameBoard[x].ship !== null) {
         let shipName = gameBoard[x].ship;
@@ -327,6 +330,8 @@ function getAdjacentCell(c) {
       n = hitCell[hitCell.length - 1];
       adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
       adjacentChoice = adjacentCells[randomAdjacent];
+      // if adjacent choice cell already hit - randomAdjacent
+      // if no option is valid
       console.log(hitCell);
       console.log(adjacentChoice);
       cellHit = true;
@@ -343,6 +348,10 @@ function getAdjacentCell(c) {
 PROBLEM: After adjacent cell with ship hit then attacks on player gameboard stops - perhaps that same cell is hit multiple times?
 
 FIX NEEDED: After successfully hitting adjacent cell, then hit following adjacent cell
+
+Partially resolved 
+
+New problem is that some hits are not administered - thus question is whether what happens with hit (possibly adjacent cell hit numerous times)
 
 */
 

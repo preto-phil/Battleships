@@ -233,15 +233,19 @@ function playerShipPlacement(index) {
   if (shipNum < 5) {
     let ship = shipArray[shipNum];
 
-    let axis_h = document.querySelector('.axis-h');
-    if (axis_h.matches('.active')) {
-      let axis = 'horizontal';
-      player.placeShip(ship, index, axis);
-      shipNum++;
-    } else {
-      let axis = 'vertical';
-      player.placeShip(ship, index, axis);
-      shipNum++;
+    // FIX NEEDED: 
+    // if cell does not contain ship then execute code below
+    if (player.gameBoard[index].ship === null) {
+      let axis_h = document.querySelector('.axis-h');
+      if (axis_h.matches('.active')) {
+        let axis = 'horizontal';
+        player.placeShip(ship, index, axis);
+        shipNum++;
+      } else {
+        let axis = 'vertical';
+        player.placeShip(ship, index, axis);
+        shipNum++;
+      }
     }
   }
 

@@ -6,6 +6,7 @@ let adjacentCells;
 let adjacentChoice;
 let cellHit;
 let hitCell = [];
+let validity;
 
 /* Ship Factory function */
 
@@ -63,7 +64,7 @@ const Gameboard = () => {
       throw new Error('Ship placement out of bounds');
     }
 
-    let validity = false;
+    validity = false;
 
     for (let i = 0; i < ship.length; i++) {
       let horNum = index + i;
@@ -249,11 +250,11 @@ function playerShipPlacement(index) {
       if (axis_h.matches('.active')) {
         let axis = 'horizontal';
         player.placeShip(ship, index, axis);
-        shipNum++;
+        if (validity === true) shipNum++;
       } else {
         let axis = 'vertical';
         player.placeShip(ship, index, axis);
-        shipNum++;
+        if (validity === true) shipNum++;
       }
     }
   }

@@ -164,7 +164,6 @@ const Gameboard = () => {
           console.log(shipName)
           hitCellsWithShip.push(randomNum);
           cellHit = true;
-          getAdjacentCell(randomNum);
       } else {
         hitCellsNoShip.push(randomNum);
         cellHit = false;
@@ -320,17 +319,13 @@ function gameLoop(cellNum) {
   ) {
     cpu.attackCPU(cellNum);
 
-    if (cellHit === true) {
-      player.receiveAttack(adjacentChoice);
-      getAdjacentCell(adjacentChoice);
-    } else {
-      player.receiveAttack();
-    }
+    player.receiveAttack(adjacentChoice);
+    getAdjacentCell();
   }
 }
 
 /* CPU choose adjacent cell */
-function getAdjacentCell(c) {
+/* function getAdjacentCell(c) {
   // Calculate potential adjacent cells
   const left = c - 1;
   const right = c + 1;
@@ -357,12 +352,60 @@ function getAdjacentCell(c) {
   adjacentChoice = validChoices[Math.floor(Math.random() * validChoices.length)];
 
   if (validChoices.length === 0) {
-    hitCellsWithShip.shift();
-    if (hitCellsWithShip.length === 0) adjacentChoice = undefined;
-    getAdjacentCell[hitCellsWithShip.length - 1];
+    hitCellsWithShip.pop();
+    hitCellsWithShip.length !== 0 ? getAdjacentCell[hitCellsWithShip.length - 1] : adjacentChoice = undefined;
   }
 
   console.log('hitcellsWithShip: ' + hitCellsWithShip);
+  console.log('Adjacent choice: ' + adjacentChoice);
+} */
+
+function getAdjacentCell() {
+  // Check if there are cells with ships hit
+  if (hitCellsWithShip.length > 0) {
+    // Get the last cell with a ship hit
+    const lastHitCell = hitCellsWithShip[hitCellsWithShip.length - 1];
+    
+    // Calculate potential adjacent cells
+    const left = lastHitCell - 1;
+    const right = lastHitCell + 1;
+    const up = lastHitCell - 10;
+    const down = lastHitCell + 10;
+
+    // Create an array of adjacent cell choices
+    const choices = [left, right, up, down];
+
+    // Filter choices to only include valid cells (within grid boundaries and not already hit)
+    const validChoices = choices.filter(choice => {
+      // Ensure choice is within grid boundaries (0-99)
+      const withinBounds = choice >= 0 && choice < 100;
+
+      // Ensure choice doesn't cross rows (prevents 10 to 9 or 0 to 10)
+      const sameRow = (Math.floor(choice % 10) === Math.floor(lastHitCell % 10) || Math.floor(choice / 10) === Math.floor(lastHitCell / 10));
+
+      return withinBounds && sameRow && !hitCellsWithShip.includes(choice) && !hitCellsNoShip.includes(choice);
+    });
+
+    if (validChoices.length > 0) {
+      // Choose a random valid adjacent cell
+      adjacentChoice = validChoices[Math.floor(Math.random() * validChoices.length)];
+    } else {
+      // No valid choices for the last cell with a ship hit, so backtrack
+      hitCellsWithShip.pop();
+      if (hitCellsWithShip.length > 0) {
+        // Use the last cell from the previous hitCellsWithShip item
+        adjacentChoice = hitCellsWithShip[hitCellsWithShip.length - 1];
+        return getAdjacentCell();
+      } else {
+        // No more cells with ships hit, reset adjacentChoice
+        adjacentChoice = undefined;
+      }
+    }
+  } else {
+    // No cells with ships hit, reset adjacentChoice
+    adjacentChoice = undefined;
+  }
+
   console.log('Adjacent choice: ' + adjacentChoice);
 }
 

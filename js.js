@@ -5,7 +5,8 @@ let n;
 let adjacentCells;
 let adjacentChoice;
 let cellHit;
-let hitCell = [];
+let hitCellsWithShip = [];
+let hitCellsNoShip = [];
 let validity;
 
 /* Ship Factory function */
@@ -161,9 +162,11 @@ const Gameboard = () => {
           let shipName = gameBoard[randomNum].ship;
           shipName.hit();      
           console.log(shipName)
-          hitCell.push(randomNum);
-          getAdjacentCell(randomNum)
+          hitCellsWithShip.push(randomNum);
+          cellHit = true;
+          getAdjacentCell(randomNum);
       } else {
+        hitCellsNoShip.push(randomNum);
         cellHit = false;
       }
       gameBoard[randomNum].hit = true;
@@ -180,9 +183,11 @@ const Gameboard = () => {
       if (gameBoard[x].ship !== null) {
         let shipName = gameBoard[x].ship;
         shipName.hit();
+        hitCellsWithShip.push(x);
         console.log(shipName)
         cellHit = true;
       } else {
+        hitCellsNoShip.push(x);
         cellHit = false;
       }
       changePlayerBoard(x);
@@ -316,8 +321,8 @@ function gameLoop(cellNum) {
     cpu.attackCPU(cellNum);
 
     if (cellHit === true) {
-      getAdjacentCell(adjacentChoice)
       player.receiveAttack(adjacentChoice);
+      getAdjacentCell(adjacentChoice);
     } else {
       player.receiveAttack();
     }
@@ -325,39 +330,41 @@ function gameLoop(cellNum) {
 }
 
 /* CPU choose adjacent cell */
-
 function getAdjacentCell(c) {
-  hitCell.push(c);
+  // Calculate potential adjacent cells
+  const left = c - 1;
+  const right = c + 1;
+  const up = c - 10;
+  const down = c + 10;
 
-    do {
-      randomAdjacent = Math.floor(Math.random() * 4);
-      n = hitCell[hitCell.length - 1];
-      adjacentCells = [Number(n) - 1, Number(n) + 1, Number(n) - 10, Number(n) + 10];
-      adjacentChoice = adjacentCells[randomAdjacent];
-      // if adjacent choice cell already hit - randomAdjacent
-      // if no option is valid
-      console.log(hitCell);
-      console.log(adjacentChoice);
-      cellHit = true;
-    }
-    while ( adjacentChoice < 0 || adjacentChoice > 99 ) 
+  // Create an array of adjacent cell choices
+  const choices = [left, right, up, down];
 
-  // if adjacent cell less than 0 or bigger than 99 then invalid
-  // if adjacent cell is already hit then invalid
-  // if adjacent cell goes from 9 to 10 invalid
+  // Filter choices to only include valid cells (within grid boundaries and not already hit)
+  const validChoices = choices.filter(choice => {
+    // Ensure choice is within grid boundaries (0-99)
+    const withinBounds = choice >= 0 && choice < 100;
+
+    // Ensure choice doesn't cross rows (prevents 10 to 9 or 0 to 10)
+    const sameRow = Math.floor(choice / 10) === Math.floor(c / 10);
+
+    return withinBounds && sameRow && !hitCellsWithShip.includes(choice) && !hitCellsNoShip.includes(choice);
+  });
+
+  console.log('valid choices length: ' + validChoices)
+
+  // Choose a random valid adjacent cell
+  adjacentChoice = validChoices[Math.floor(Math.random() * validChoices.length)];
+
+  if (validChoices.length === 0) {
+    hitCellsWithShip.shift();
+    if (hitCellsWithShip.length === 0) adjacentChoice = undefined;
+    getAdjacentCell[hitCellsWithShip.length - 1];
+  }
+
+  console.log('hitcellsWithShip: ' + hitCellsWithShip);
+  console.log('Adjacent choice: ' + adjacentChoice);
 }
-
-/* 
-
-PROBLEM: After adjacent cell with ship hit then attacks on player gameboard stops - perhaps that same cell is hit multiple times?
-
-FIX NEEDED: After successfully hitting adjacent cell, then hit following adjacent cell
-
-Partially resolved 
-
-New problem is that some hits are not administered - thus question is whether what happens with hit (possibly adjacent cell hit numerous times)
-
-*/
 
 
 /* UI Section */

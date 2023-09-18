@@ -1,3 +1,5 @@
+/* Global Variables */
+
 let randomAdjacent;
 let n;
 let adjacentCells;
@@ -111,6 +113,7 @@ const Gameboard = () => {
     console.log(ship);
   }
 
+  // Check if all ships are sunk
   function checkSunk() {
     let totalSunk = 0;
   
@@ -167,7 +170,7 @@ const Gameboard = () => {
       return gameBoard[randomNum];
     } 
     
-    // cpu receives attack from player 
+    // player receives adjacent attack from cpu 
     if (x !== undefined) {
       if (gameBoard[x].hit === true) {
         player.receiveAttack();
@@ -240,8 +243,8 @@ function playerShipPlacement(index) {
     let ship = shipArray[shipNum];
 
     // Only place ship if cell does not contain ship
-
     if (player.gameBoard[index].ship === null) {
+      // Determine axis
       let axis_h = document.querySelector('.axis-h');
       if (axis_h.matches('.active')) {
         let axis = 'horizontal';
@@ -355,12 +358,6 @@ New problem is that some hits are not administered - thus question is whether wh
 
 */
 
-
-/* if previous attack === ship hit 
-  then call receiveAttack on a valid adjacent cell
-
-else if previous attack !== ship hit
-  then call receiveAttack on a random valid cell */
 
 /* UI Section */
 

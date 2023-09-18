@@ -47,7 +47,7 @@ header {
   grid-area: 1 / 1 / 2 / 2;
 
   display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-columns: 2fr 8fr 1fr 1fr;
 }
 
 #header {
@@ -70,6 +70,16 @@ header {
   text-shadow: 2px 2px 12px violet;
 }
 
+#home {
+  grid-area: 1 / 4 / 2 / 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-shadow: 2px 2px 12px violet;
+}
+
 #theme-btn {
   padding: 0.5rem;
   border-radius: 10px;
@@ -79,6 +89,21 @@ header {
   font-weight: 500;
   text-shadow: 2px 2px 12px violet;
   cursor: pointer;
+}
+
+#home-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 2px solid blueviolet;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-shadow: 2px 2px 12px violet;
+  cursor: pointer;
+}
+
+svg {
+  height: 30px;
+  width: auto;
 }
 
 /* Main Section */

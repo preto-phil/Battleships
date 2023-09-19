@@ -5,6 +5,7 @@ let adjacentCells;
 let adjacentChoice;
 let hitCellsWithShip = [];
 let hitCellsNoShip = [];
+let validChoicesTotal = []
 let validity;
 
 /* Ship Factory function */
@@ -305,20 +306,18 @@ function gameLoop(cellNum) {
     cpu.attackCPU(cellNum);
     player.receiveAttack(adjacentChoice);
     getAdjacentCell();
-/*     console.log('All player ships sunk: ' + player.checkSunk());
- */  } else {
-    changePlayerBoard();
+    console.log('All player ships sunk: ' + player.checkSunk());
   }
 }
 
 function getAdjacentCell() {
+  if (hitCellsWithShip.length === 0) return adjacentChoice = undefined;
+  
   // Check if there are cells with ships hit
   if (hitCellsWithShip.length > 0) {
-    // Get the last cell with a ship hit
+    // Get last ship with cell hit
     const lastHitCell = hitCellsWithShip[hitCellsWithShip.length - 1];
-/*     console.log(lastHitCell);
-    console.log(hitCellsWithShip);
-     */
+
     // Calculate potential adjacent cells
     const left = lastHitCell - 1;
     const right = lastHitCell + 1;
@@ -339,25 +338,26 @@ function getAdjacentCell() {
       return withinBounds && sameRow && !hitCellsWithShip.includes(choice) && !hitCellsNoShip.includes(choice);
     });
 
+    validChoicesTotal.push(...validChoices);
+    // console.log(validChoicesTotal);
+
     if (validChoices.length > 0) {
       // Choose a random valid adjacent cell
       adjacentChoice = validChoices[Math.floor(Math.random() * validChoices.length)];
-    }/*  else {
-      if (hitCellsWithShip.length > 0) {
-        // Use the last cell from the previous hitCellsWithShip item
-        return getAdjacentCell();
-      } else {
-        // No more cells with ships hit, reset adjacentChoice
-        adjacentChoice = undefined;
-      }
-    } */
-  } else {
-    // No cells with ships hit, reset adjacentChoice
-    adjacentChoice = undefined;
-  }
+    } else if (hitCellsWithShip.length > 0) {
 
-/*   console.log('Adjacent choice: ' + adjacentChoice);
- */}
+      const validChoicesLeft = validChoicesTotal.filter(choice => {
+        return (!hitCellsWithShip.includes(choice) && !hitCellsNoShip.includes(choice));
+      });
+      // console.log(validChoicesLeft);
+      // Use the last cell from the previous hitCellsWithShip item
+      return adjacentChoice = validChoicesLeft[validChoicesLeft.length - 1];
+    } else {
+      // No more cells with ships hit, reset adjacentChoice
+      adjacentChoice = undefined;
+    }
+  }
+}
 
 
 /* UI Section */
@@ -377,11 +377,11 @@ function createCPUGameboard() {
     createDiv.addEventListener('click', () => {
       let cellNum = (Number(cell.row) * 10 + Number(cell.col));
 
-      if (cell.hit === false && cell.ship !== null && cpu.checkSunk() === false) {
+      if (cell.hit === false && cell.ship !== null && cpu.checkSunk() === false && player.checkSunk() === false) {
         gameLoop(cellNum);
         createDiv.classList.add('hit');
         hitInfo();
-      } else if (cell.hit === false && cell.ship === null && cpu.checkSunk() === false) {
+      } else if (cell.hit === false && cell.ship === null && cpu.checkSunk() === false && player.checkSunk() === false) {
         gameLoop(cellNum);
         createDiv.classList.add('miss');
         misInfo();
@@ -390,6 +390,11 @@ function createCPUGameboard() {
         const infoDiv = document.getElementById('info');
         infoDiv.innerText = 'You won! All enemy ships have been sunk.';
         console.log('You won! All enemy ships have been sunk.');
+      }
+      if (player.checkSunk() === true) {
+        const infoDiv = document.getElementById('info');
+        infoDiv.innerText = 'You lost! All your ships have been sunk.';
+        console.log('You lost! All your ships have been sunk.');
       }
     })
   })
@@ -407,7 +412,7 @@ function createPlayerGameboard() {
 
     createDiv.addEventListener('click', () => {
       const index = [...playerDiv.children].indexOf(createDiv);
-      playerShipPlacement(index)
+      playerShipPlacement(index);
     })
 
     playerDiv.appendChild(createDiv);
@@ -423,11 +428,10 @@ function changePlayerBoard(i) {
   } else if (player.gameBoard[i].ship === null && player.checkSunk() === false) {
     const getDiv = document.getElementById(`cell-${i}`);
     getDiv.classList.add('miss')
-  }
-  if (player.checkSunk() === true) {
-    const infoDiv = document.getElementById('info');
-    infoDiv.innerText = 'You lost! All your ships have been sunk.';
-    console.log('You lost! All your ships have been sunk.');
+  } if (player.checkSunk() === true) {
+    const getDiv = document.getElementById(`cell-${i}`);
+    getDiv.innerText = 'X';
+    getDiv.classList.add('hit');
   }
 }
 

@@ -304,9 +304,10 @@ cpuShipPlacement()
 function gameLoop(cellNum) {
   if (!cpu.checkSunk() && !player.checkSunk()) {
     cpu.attackCPU(cellNum);
-    player.receiveAttack(adjacentChoice);
-    getAdjacentCell();
-    console.log('All player ships sunk: ' + player.checkSunk());
+    if (!cpu.checkSunk()) {
+      player.receiveAttack(adjacentChoice);
+      getAdjacentCell();
+    }
   }
 }
 
@@ -339,7 +340,6 @@ function getAdjacentCell() {
     });
 
     validChoicesTotal.push(...validChoices);
-    // console.log(validChoicesTotal);
 
     if (validChoices.length > 0) {
       // Choose a random valid adjacent cell
@@ -349,7 +349,6 @@ function getAdjacentCell() {
       const validChoicesLeft = validChoicesTotal.filter(choice => {
         return (!hitCellsWithShip.includes(choice) && !hitCellsNoShip.includes(choice));
       });
-      // console.log(validChoicesLeft);
       // Use the last cell from the previous hitCellsWithShip item
       return adjacentChoice = validChoicesLeft[validChoicesLeft.length - 1];
     } else {
@@ -517,6 +516,17 @@ function toggleTheme() {
 }
 
 toggleTheme();
+
+/* Reset */
+
+function resetGame() {
+  const homeBtn = document.getElementById('home-btn');
+  homeBtn.addEventListener('click', () => {   
+    window.location.reload();
+  });
+}
+
+resetGame();
 
 /* Open Github on icon click */
 

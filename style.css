@@ -26,14 +26,14 @@ body {
 }
 
 .light-mode {
-  background-color: whitesmoke;
+  background-color: rgb(222, 228, 195);
   color: rgb(20, 20, 20);
 }
 
-header,
+/* header,
 footer {
   border: 1px solid purple;
-}
+} */
 
 footer {
   display: flex;
@@ -114,7 +114,7 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px solid blueviolet;
+/*   border: 1px solid blueviolet; */
 }
 
 #main-top {

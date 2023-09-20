@@ -4,7 +4,7 @@
 
 This is a simple implementation of the classic Battleship game using HTML, CSS, and JavaScript. The game allows you to play against a computer opponent by placing ships on a grid and taking turns to attack each other's ships.
 
-![Battleship Screenshot](./Images/screenshot.png)
+![Battleship Screenshot](./Images/battleships-screenshot.png)
 
 ## Getting Started
 
